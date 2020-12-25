@@ -1,0 +1,346 @@
+body{
+    background: #FAFAFC;
+}
+.coverage{
+    width: 1200px;
+    margin: 0 auto;
+}
+.txt-align{text-align:center}
+.txt-align-l{text-align:left}
+.txt-align-r{text-align:right}
+.v-middle{vertical-align: middle;}
+.v-top{vertical-align: top;}
+.v-bottom{vertical-align: bottom}
+.f0{font-size: 0;}
+.box-siz{box-sizing: border-box;display: inline-block;}
+.w9{width:90%;}
+.w8{width:80%;}
+.w7{width:70%;}
+.w6{width:60%;}
+.w5{width:50%;}
+.w4{width:40%;}
+.w3{width:30%;}
+.w33{width:33.33333%;}
+.w25{width:25%;}
+.w2{width:20%;}
+.w1{width:10%;}
+.lh100{line-height: 100%;}
+.golbal-tabs-line{opacity: 0.2;height: 1px;border-radius: 1px;width: 100%;}
+.golbal-tabs-style span{
+    position: relative;
+    font-size: 22px;
+    font-family: Alibaba PuHuiTi;
+    font-weight: 500;
+    padding: 19px 0;
+    display: inline-block;
+    cursor: pointer;
+}
+.golbal-tabs-style .twhite{color: #FFFFFF;}
+.golbal-tabs-style .tdb{color: #2b2b2b; margin:0 67px;}
+.golbal-tabs-style span:after{transition:all .3s ease-in;display:block;content:"";position:absolute;bottom:0;left:0;height:3px;width:100%;background:0 0}
+/* .golbal-tabs-style span.active:after{background:#fff}
+.golbal-tabs-style span:hover:after{background:#fff} */
+.golbal-tabs-style .twhite.active:after{background:#fff;}
+.golbal-tabs-style .twhite:hover:after{background:#fff;}
+.golbal-tabs-style .tdb.active:after{background:#066AB9;}
+.golbal-tabs-style .tdb:hover:after{background:#066AB9;}
+.h-title{font-size: 36px;font-family: Alibaba PuHuiTi;font-weight: 700;line-height: 100%;}
+.h-nc{color: #2B2B2B;padding: 104px 0 40px;}
+.h-busin{color: #fff;padding: 94px 0 42px;}
+.h-entrp{color: #2B2B2B;padding: 106px 0 42px 0;}
+.h-bigData{color: #fff;padding: 95px 0 0;}
+.h-STKJ{color: #2B2B2B;padding: 108px 0 21px 0;}
+.h-culture{color: #2B2B2B;padding: 95px 0 61px 0;}
+.h-culyj{color: #ffffff;padding: 97px 0 34px 0;}
+.h-company{color: #2B2B2B;padding: 91px 0 52px 0;}
+.h-gsjj{color: #2B2B2B;}
+.st-bigData{
+    background: url('../img/bigdata_bg.jpg') #066ab9 no-repeat center;
+    width: 100%;
+    height: 700px;
+}
+.business-range{
+    background: url('../img/business_bg.jpg') #066ab9 no-repeat center; 
+    width: 100%;
+    height: 890px;
+}
+.bigD-box{
+    position: relative;
+}
+.bb-pa1{position: absolute; left: 8px; top: 313px;}
+.bb-pa2{position: absolute; left: 344px; top: 83px;}
+.bb-pa3{position: absolute; right: 337px; top: 85px;}
+.bb-pa4{position: absolute; right: 28px; top: 307px;}
+.bigD-box p,.bigD-box span{color: #FFFFFF;font-size: 22px;}
+.big-nub{font-size: 32px !important;padding-right: 5px;}
+.tip-line{
+    width: 30px;
+    height: 5px;
+    background: #066AB9;
+    border-radius: 3px;
+    margin: 0 auto;
+}
+.stkj-bgimg{
+    background: url('../img/stkj_bg.png') center no-repeat;
+    width: 100%;
+    height: 816px;
+}
+.stkj-conbox{
+    margin: 88px 0 0;
+}
+.stkj-p1{
+    font-size: 22px;
+    font-family: Alibaba PuHuiTi;
+    font-weight: 500;
+    color: #4D4D4D;
+    opacity: 0.5;     
+}
+.stkj-p2{
+    font-size: 30px;
+    font-family: Microsoft YaHei;
+    font-weight: bold;
+    color: #2B2B2B;
+    padding-top: 9px;
+}
+.stkj-p3{
+    font-size: 18px;
+    font-family: Alibaba PuHuiTi;
+    font-weight: 400;
+    color: #2B2B2B;
+    line-height: 28px;
+    padding: 43px 0 65px;
+}
+.stkj-img{padding-bottom: 228px;}
+.stkj-pr{position: relative;margin-top: 91px;}
+.stkj-pab{position: absolute;left: 618px;top: 0;}
+.busin-line{background: #FFFFFF;}
+.busin-margin{margin: 0 200px;}
+.busin-content{
+    padding: 78px 115px 46px 115px;
+    height: 82px;
+    font-size: 18px;
+    font-family: Alibaba PuHuiTi;
+    font-weight: 400;
+    color: #FFFFFF;
+    line-height: 28px;
+}
+.enterprise-line{background: #2B2B2B;}
+.ww{
+    width: 1200px;
+    overflow: hidden;
+    margin: 0 auto;
+    position: relative;
+}
+.enterprise-list{
+    /* height: 280px; */
+    /* width: 8680px; */
+    /* position: relative; */
+}
+.enterprise-list li{
+    /* width: 1200px; */
+    /* float: left; */
+    /* height: 280px; */
+    padding: 0 0 20px 20px;
+}
+.enterprise-list li div{
+    display: inline-block;
+    padding: 0 17.5px;
+    vertical-align: top;
+}
+.entr-coo-height{
+    padding: 69px 0 115px 0;
+}
+.news-n-title{
+    font-size: 20px;
+    font-family: Alibaba PuHuiTi;
+    font-weight: 700;
+    color: #2B2B2B;
+    line-height: 100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+.news-n-time{
+    font-size: 16px;
+    font-family: Alibaba PuHuiTi;
+    font-weight: 400;
+    color: #5B5B5B;
+    line-height: 100%;
+}
+.news-n-content{
+    font-size: 16px;
+    font-family: Alibaba PuHuiTi;
+    font-weight: 400;
+    color: #5B5B5B;
+    line-height: 100%;
+    padding: 13px 0 18px 0;
+    line-height: 24px;
+    height: 64px;
+}
+.news-n-btn{
+    font-size: 16px;
+    font-family: Alibaba PuHuiTi;
+    font-weight: 400;
+    color: #066AB9;
+    line-height: 100%;
+    display: block;
+}
+/* .news-n-li:hover{       
+    background: #FFFFFF;
+    box-shadow: 0px 2px 16px 0px rgba(0, 0, 0, 0.04);
+} */
+.news-n-li.active{
+    background: #FFFFFF;
+    box-shadow: 0px 2px 16px 0px rgba(0, 0, 0, 0.04);
+}
+.news-n-img{
+    padding: 38px 0 30px;
+}
+.news-li-box{
+    padding-right: 73px;
+}
+.news-more-btn{
+    font-size: 18px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #FFFFFF;
+    background: #066AB9;
+    line-height: 100%;
+    padding: 11px 30px;
+    display: inline-block;
+}
+.news-more-btn-box{
+    margin: 36px 0 55px;
+}
+.news-n-tabbtn{
+    padding: 0 0 26px;
+}
+.news-n-tabbtn span{
+    font-size: 20px;
+    font-family: Alibaba PuHuiTi;
+    font-weight: 400;
+    color: #066AB9;
+    line-height: 100%;
+    padding: 12px 19px;
+    display: inline-block;
+    background: #FFFFFF;
+    border: 1px solid #147CCE;
+    cursor: pointer;
+}
+.news-n-tabbtn .active{
+    background: #066AB9;
+    color: #FFFFFF;
+}
+/* footer */
+.footer-box{
+    width:100%;
+    /* padding-top:36px; */
+    /* height:280px; */
+    background-color:#1A262F;
+}
+.fast-list p{
+    font-size: 14px;
+    opacity: 0.7;
+    color: #FFFFFF;
+    font-family: Alibaba PuHuiTi;
+}
+.fast-list .fl-cell{
+    font-size: 22px;
+    font-weight: 500;
+}
+.fast-list .fl-work{
+    font-size: 12px;
+}
+.fast-list .fl-p2{
+    padding: 11px 0;
+}
+.n-contus img{
+    padding: 0 0 50px 0;
+}
+.fast-nav{
+    /* padding: 0 240px 0 197px; */
+}
+.fast-tit{
+    padding:0 0 36px;
+    font-size: 24px;
+    font-family: Alibaba PuHuiTi;
+    font-weight: 400;
+    color: #FFFFFF;
+}
+.code-text{
+    font-size: 24px;
+    font-family: Alibaba PuHuiTi;
+    font-weight: 400;
+    color: #FFFFFF;
+    padding: 0 0 26px;
+}
+.code-pic{
+    padding: 0 4px 0 0;
+}
+.n-copy{
+    color:rgba(255,255,255,1);
+    font-size:12px;
+    padding: 20px 0;
+    background: #121C24;
+}
+.footer-con-box{
+    padding: 70px 0 28px;
+}
+.tips-list div{
+    /* display: block; */
+    color: #CBCBCB;
+    font-size: 30px;
+    cursor: pointer;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    width: 53px;
+    height: 53px;
+    line-height: 53px;
+    margin: 6px 0;
+}
+.tips-list div:hover{
+    background: #ECF7FF;
+    border: 1px solid #066AB9;
+    border-radius: 10px;
+    color: #066AB9;
+}
+.fixed-box{position:fixed;right:55px;top:60%;z-index:200}
+.fb-phone-pa{position: absolute;left: -212px;top: 7px;display: none;}
+.fb-wx-pa{position: absolute;left: -179px;top: 69px;display: none;}
+.fb-bg{
+    background: #FFFFFF;
+    box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+}
+.fb-phone-bg{
+    padding: 28px 36px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #5B5B5B;
+}
+.fb-wx-bg{
+    padding:5px 10px;
+    color: #5B5B5B;
+    font-weight: bold;
+}
+.fb-back{display: none;}
+.fb-phone-pr,.fb-wx-pr{position: relative;}
+.fb-triangle{
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 16px solid #fff;
+}
+.fb-phone-triangle{
+    right: -16px;
+    top: 18px;
+}
+.fb-wx-triangle{
+    right: -16px;
+    top: 18px;
+}
+.fb-phone-call{padding: 0 0 10px 0;}

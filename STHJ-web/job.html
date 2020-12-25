@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人才招聘</title>
+    <link rel="stylesheet" type="text/css" href="css/public.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/join.css">
+    <link rel="stylesheet" type="text/css" href="css/global.css" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var Page = (function () {
+            var Page = function () { 
+                this.init();
+            };
+
+            Page.prototype.init = function () {
+                var that = this;
+                this.getJob(function(){
+                    that.renderJob();
+                })
+
+            };
+
+            Page.prototype.getJob = function (fun) {
+                var that = this;
+                $.ajax({
+                    url: 'website/job/list',
+                    type: 'POST',
+                    dataType: "json",
+                    success: function (datas) { //请求成功后处理函数。
+                        that.getJob.data = datas.result;
+                        fun && fun();
+                    },
+                    error: function (d, msg) {
+                        console.log("Could not find user " + msg);
+                    }
+                });
+            }
+            Page.prototype.renderJob = function () {
+                var that = this;
+                var data = that.getJob.data;
+                var htmltext = '';
+                for (var i = 0; i < data.length; i++) {
+                    // var tt = data[i].introduce.substring(0, 13);
+                    htmltext += '<div class="c1">'
+                        + '<img class="c1-img" src="' + data[i].img + '" width="94" height="94">'
+                        + '<p class="c1-tit">' + data[i].position + '</p>'
+                        + '<p class="c1-pirce">' + data[i].salary + '</p>'
+                        + '<p class="c1-con">' + data[i].introduce + '</p>'
+                        + '<span class="jiaru">'
+                        + '<a href="jobDetails.html?articleId=' + data[i].id + '" target="_blank">加入团队</a>'
+                        + '</span>'
+                        + '</div>'
+                }
+                $(".cont3").html(htmltext);
+                if (data.length >= 4) {
+                    $(".cont3 div").addClass('c4')
+                }
+                if (data.length == 3) { $(".cont3 div").addClass('c3') }
+                if (data.length == 2) { $(".cont3 div").addClass('c2') }
+            }
+
+            return Page;
+        })();
+        $(function(){
+            var page = new Page();
+            $("#footer_box").load("component/footer.html");
+            // $("#header_box").load("component/header.html");
+            
+        })
+    </script>
+</head>
+
+<body>
+    <div class="topbox">
+        <div class="head clearfloat">
+            <div class="logo clearfloat">
+                <img class="new-logo-style" src="temp/logo.png" alt="">
+            </div>
+            <div class="nav">
+                <ul class="clearfloat">
+                    <li><a href="index.html">首页</a></li>
+                    <li class="active"><a href="Company.html">关于我们</a>
+                        <div class="nav_down">
+                            <p><a href="Company.html">公司简介</a></p>
+                            <p><a href="culture.html">企业文化</a></p>
+                            <p><a href="team.html">团队文化</a></p>
+                            <p><a href="job.html">公司招聘</a></p>
+                        </div>
+                    </li>
+                    <li><a href="http://www.sthjnet.com/#/" target="_blank">神通货金</a></li>
+                    <li><a href="news.html">新闻中心</a>
+                        <div class="nav_down">
+                            <p><a href="news.html">神通动态</a></p>
+                            <p><a href="industry.html">行业资讯</a></p>
+                        </div>
+                    </li>
+                    <!-- <li><a href="job.html">人才招聘</a></li> -->
+                    <li><a href="aboutUs.html">联系我们</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--top-->
+    <div class="gl-bg team-bg">
+        <div class="agent_top coverage">
+            <!-- <h2>加入我们</h2> -->
+        </div>
+    </div>
+    <!-- company-nav -->
+    <div class="company-nav-box">
+        <div class="coverage txt-align">
+            <div class="company-link-btn f0">
+                <a class="box-siz w25 " href="Company.html">公司简介</a>
+                <a class="box-siz w25 " href="culture.html">企业文化</a>
+                <a class="box-siz w25 " href="team.html">团队文化</a>
+                <a class="box-siz w25 active" href="job.html">公司招聘</a>
+            </div>
+        </div>
+    </div>
+    <div class="job-box coverage txt-align">
+        <div class="cont2-b">
+            <!-- <img src="images/img07.jpg"> -->
+            <p class="aaa">在这里，你将拥有宽松、愉悦、平等的工作环境，你将收获友爱、尊重、温暖的创业伙伴， 更重要的是，你有可能实现自己最大的价值。
+            </p>
+        </div>
+        <div class="container">
+            <div class="cont3 f0">
+                <!-- <div class="c1">
+                    <img class="c1-img" src="img/job_01.png" width="94" height="94">
+                    <p class="c1-tit">售前工程师</p>
+                    <p class="c1-pirce">配合销售经理完</p>
+                    <p class="c1-con">配合销售经理完</p>
+                    <span class="jiaru"><a href="" target="_blank">加入团队</a></span>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <!-- footer -->
+    <div class="footer-box" id="footer_box"></div>
+
+</body>
+
+
+
+</html>

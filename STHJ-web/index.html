@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" href="css/public.css" />
+    <link rel="stylesheet" type="text/css" href="css/global.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="font/iconfont.css">
+    <script src="js/jquery.min.js"></script>
+    <!-- <script src="js/raphael.min.js"></script> -->
+    <script src="js/jquery.animateNumber.js"></script>
+    <script src="js/flowup.js"></script>
+    <script src="js/public.js"></script>
+</head>
+
+<body>
+
+    <div class="topbox">
+        <div class="head clearfloat">
+            <div class="logo clearfloat">
+                <img class="new-logo-style" src="temp/logo.png" width="186" alt="">
+            </div>
+            <div class="nav">
+                <ul class="clearfloat">
+                    <li class="active"><a href="index.html">首页</a></li>
+                    <li><a href="Company.html">关于我们</a>
+                        <div class="nav_down">
+                            <p><a href="Company.html">公司简介</a></p>
+                            <p><a href="culture.html">企业文化</a></p>
+                            <p><a href="team.html">团队文化</a></p>
+                            <p><a href="job.html">公司招聘</a></p>
+                        </div>
+                    </li>
+                    <li><a href="http://www.sthjnet.com/#/" target="_blank">神通货金</a></li>
+                    <li><a href="news.html">新闻中心</a>
+                        <div class="nav_down">
+                            <p><a href="news.html">神通动态</a></p>
+                            <p><a href="industry.html">行业资讯</a></p>
+                        </div>
+                    </li>
+                    <!-- <li><a href="job.html">人才招聘</a></li> -->
+                    <li><a href="aboutUs.html">联系我们</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <!-- banner -->
+    <div class="banner">
+        <ul class="clearfloat bannerul xin" id="xin">
+            <!-- <li><img src="img/nbaner.png" /></li>
+            <li><img src="img/nbaner.png" /></li>
+            <li><img src="img/nbaner.png" /></li>
+            <li><img src="img/nbaner.png" /></li> -->
+        </ul>
+        <ul class="num clearfloat">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div>
+            <!-- <button class="ll" type="button">Click Me l!</button>
+                <button class="rr" type="button">Click Me r!</button> -->
+            <!-- <span class="left-btn-l">
+                    <img src="images/lef1.png" width="26" class="ll">
+                </span>
+                <span class="right-btn-r">
+                    <img src="images/rig1.png" width="26" class="rr">
+                </span> -->
+        </div>
+    </div>
+    <!-- 走进神通 -->
+    <div class="STKJ stkj-bgimg">
+        <div class="coverage ">
+            <div class="h-title h-STKJ txt-align anime">走进神通科技</div>
+            <div class="tip-line anime"></div>
+            <div class="f0 stkj-conbox anime">
+                <div class="box-siz w5">
+                    <p class="stkj-p1 lh100">关于我们</p>
+                    <p class="stkj-p2 lh100">ABOUT US</p>
+                    <p class="stkj-p3 lh100">安徽神通物联网科技有限公司系国家交通部认定的“无车承运人”试点企业
+                        公司主要经营全国各地的公路及水陆往返货物的运输业务，代办保险，同时提供超一流的货物包装及现代化仓储、物流服务。
+                        是完全基于互联网平台，运用现代科学技术及大数据、云计算等手段，实现“线上资源合理配置，线下物流高效运行”的现代化科技物流企业。</p>
+                    <a href="Company.html"><img class="stkj-img" src="img/zou_btn.png" alt=""></a>
+                </div>
+                <div class="box-siz w5 ">
+                    <span style="opacity: 0;color: #ffffff;">1</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- data -->
+    <div class="st-bigData anime">
+        <div class="coverage txt-align">
+            <div class="h-title h-bigData">神通大数据</div>
+            <div class="bigD-box">
+                <div class="bb-pa1">
+                    <p>运单规模</p>
+                    <div><span class="big-nub" id="count-number0">0</span><span>条</span></div>
+                </div>
+                <div class="bb-pa2">
+                    <p>平台车辆</p>
+                    <div><span class="big-nub" id="count-number1">0</span><span>台</span></div>
+                </div>
+                <div class="bb-pa3">
+                    <p>货物总量</p>
+                    <div><span class="big-nub" id="count-number2">0</span><span>吨</span></div>
+                </div>
+                <div class="bb-pa4">
+                    <p>司机数量</p>
+                    <div><span class="big-nub" id="count-number3">0</span><span>名</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 企业资质 -->
+    <div class="enterprise anime">
+        <div class="coverage">
+            <div class="h-title h-entrp anime txt-align">企业资质</div>
+            <!-- golbal tab -->
+            <div id="all" class=" anime txt-align">
+                <div class="golbal-tabs-style f0" id="enterTab">
+                    <span class="tdb active">诚信经营</span>
+                    <span class="tdb">管理体系认证</span>
+                    <span class="tdb">荣誉称号</span>
+                    <span class="tdb">税收贡献</span>
+                    <span class="tdb">信用资质</span>
+                </div>
+                <div class="golbal-tabs-line enterprise-line"></div>
+            </div>
+            <div class="entr-coo-height anime">
+                <div class="coo ">
+                    <ul class="enterprise-list">
+                        <!-- <li>
+                            <div>
+                                <img src="img/enter_01.png" width="192" height="272" alt="">
+                                <p>信用资质</p>
+                            </div>
+                            <div>
+                                <img src="img/enter_01.png" width="192" height="272" alt="">
+                                <p>信用资质</p>
+                            </div>
+                            <div>
+                                <img src="img/enter_01.png" width="192" height="272" alt="">
+                                <p>信用资质</p>
+                            </div>
+                            <div>
+                                <img src="img/enter_01.png" width="192" height="272" alt="">
+                                <p>信用资质</p>
+                            </div>
+                            <div>
+                                <img src="img/enter_01.png" width="192" height="272" alt="">
+                                <p>信用资质</p>
+                            </div>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 业务 -->
+    <div class="business-range anime">
+        <div class="coverage txt-align">
+            <div class="h-title h-busin anime">业务范围</div>
+            <!-- golbal tab -->
+            <div id="all" class="anime">
+                <div class="golbal-tabs-style f0" id="businTab">
+                    <span class="twhite active">公路运输</span>
+                    <span class="twhite busin-margin">水上运输</span>
+                    <span class="twhite">保险金融</span>
+                </div>
+                <div class="golbal-tabs-line busin-line"></div>
+            </div>
+            <div class="busin-tabcon anime">
+                <div class="busin-content">
+                    公路运输是经营者依托互联网平台整合配置运输资源，以承运人身份与托运人签订运输合同，委托实际承运人完成道路货物运输，承担承运人责任的道路货物运输经营活动。提高车主配货效率，降低空返率；提升货主找车效率，改善整体物流行业的运行效率。
+                </div>
+                <img src="img/bns_01.png" alt="" width="961" height="370">
+            </div>
+        </div>
+    </div>
+    <!-- news -->
+    <div class="news-content anime">
+        <div class="coverage txt-align">
+            <div class="h-title h-nc anime">新闻中心</div>
+            <!-- tab -->
+            <div class="news-n-tabbtn txt-align-l anime" id="newsTabs">
+                <span class="active">公司动态</span>
+                <span>行业资讯</span>
+            </div>
+            <div id="newsListBox">
+                <div class="news-n-li anime">
+                    <div class="f0">
+                        <div class="box-siz w3 v-middle">
+                            <img class="news-n-img lh100" src="img/news_1.png" alt="" width="260" height="164">
+                        </div>
+                        <div class="box-siz w7 v-middle news-li-box">
+                            <div class="lh100">
+                                <span
+                                    class="box-siz w8 news-n-title txt-align-l">致敬神通人——未来可期，我们一路前行！致敬神通人——未来可期，我们一路前行！致敬神通人——未来可期，我们一路前行！</span>
+                                <span class="box-siz w2 news-n-time txt-align-r">2020.01.20</span>
+                            </div>
+                            <div class="news-n-content txt-align-l">
+                                安徽神通物联网科技有限公司简称“神通物联网”，2016年正式成立，2017年3月被交通部认定为“无车承运人”国家试点企业。公司主营业务：网络货运+物流金融+物流供应链，是完全基于互联网平台,运用现代科学技术及大数据、云计算等手段,实现“线上资源合理配置，线下物流高效运行”的现代化...
+                            </div>
+                            <a class="news-n-btn txt-align-l" href="news.html">查看详情—</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- more -->
+            <div class="news-more-btn-box">
+                <!-- <span class="news-more-btn">MORE</span> -->
+                <a class="news-more-btn" href="news.html">MORE</a>
+            </div>
+        </div>
+    </div>
+    <!-- footer -->
+    <div class="footer-box" id="footer_box"></div>
+
+    <div class="fixed-box" id="fixed_box"></div>
+
+
+</body>
+<script>
+    var Page = (function () {
+        var Page = function (opt) {
+            //全局变量
+        };
+        //init
+        Page.prototype.init = function () {
+            var that = this;
+            that.tabsfun($('#enterTab span'), function (index) {
+                that.getEnterData(index, function () {
+                    that.randEnter();
+                });
+            });
+            this.getBusinessData(function () {
+                var o = $('#businTab span');
+                that.businTab = o;
+                that.tabsfun(o, function (index) {
+                    that.businTabRender(index);
+                });
+            })
+            this.getNews(function () {
+                var o = $('#newsTabs span');
+                that.tabsfun(o, function (index) {
+                    that.setNewsCon(index)
+                });
+            });
+            this.getBigData(function () {
+                that.animateNumFun();
+            })
+            this.getBannerData(function () {
+                that.setBanner();
+            });
+        }
+        //业务内容定时器
+        Page.prototype.businTabRender = function (index) {
+            var btn = this.businTab;
+            var that = this;
+            var ls = btn.length
+            var idx = index ? index : 0;
+            if (index) {
+                that.businessContent(index);
+                btn.eq(index).addClass('active').siblings().removeClass('active');
+            } else {
+                that.businessContent();
+                if (!this.businTabTime) {
+                    this.businTabTime = setInterval(function () {
+                        idx++;
+                        if (idx == ls) {
+                            idx = 0;
+                        }
+                        that.businessContent(idx);
+                        btn.eq(idx).addClass('active').siblings().removeClass('active');
+                    }, 5000);
+                }
+            }
+        }
+        //banner Rendering
+        Page.prototype.setBanner = function () {
+            var that = this;
+            var htmltext = '';
+            var data = that.getBannerData.data;
+            console.log(data)
+            for (var i = 0; i < data.length; i++) {
+                htmltext += '<li>' +
+                    '<img src="' + data[i].img + '"/>' +
+                    '</li>'
+            }
+            $("#xin").html(htmltext);
+            that.banner(data);
+        }
+        //banner
+        Page.prototype.banner = function (data) {
+            var that = this;
+            var banners = $('.banner');
+            var bannerul = $('.bannerul');
+            var bannerulli = $('.bannerul li')
+            var widths = banners.width();
+            var lengths = bannerulli.length;
+            var sid = null;
+            var index = 0;
+            bannerulli.width(widths)
+            var bgc = []
+            for (var i = 0; i < data.length; i++) {
+                var tt = {};
+                tt.background = data[i].background;
+                bgc.push(tt);
+            }
+            banners.css(bgc[0]);
+            function play() {
+                index++;
+                if (index == lengths) {
+                    index = 0;
+                    banners.css(bgc[index]);
+                }
+                banners.css(bgc[index]);
+                core(index);
+            }
+            sid = setInterval(play, 5000);
+            banners.hover(function () {
+                clearInterval(sid)
+            }, function () {
+                sid = setInterval(play, 5000);
+            });
+
+            $(".num li").on('click', function () {
+                index = $(this).index();
+                banners.css(bgc[index]);
+                core(index);
+            });
+
+            function core(index) {
+                
+                $('.bannerul').append($('.bannerul li').eq(0).clone());//copy第一张添加在最后
+                bannerul.stop().animate({
+                    'left': -(bannerulli.eq(0).innerWidth())
+                }, 1000,"linear",function(){
+                    $('.bannerul li').eq(0).remove();//执行完删除第一个图片
+                    bannerul.css({"left":"0px"});//初始化left值
+                });
+                $('.num li').eq(index).addClass('active').siblings().removeClass('active');
+               
+            }
+        }
+        //图片滚动
+        Page.prototype.changeTab = function (id) {
+
+            var slideBox = id;
+            var ul = slideBox.find("ul");
+            var oneWidth = slideBox.find("ul li").eq(0).width();
+            var number = slideBox.find("ul li");//注意分号 和逗号的用法
+            var timer = null;
+            var sw = 0;
+            console.log(number.length);
+            // if(number.length < 1){return false};
+            //定时器的使用，自动开始
+            timer = setInterval(function () {
+                sw++;
+                if (sw == number.length) {
+                    sw = 0
+                    ul.animate({
+                        'right': 0
+                    }, 0)
+                };
+                if (number.length > 1) {
+                    ul.animate({
+                        "right": oneWidth * sw, //ul标签的动画为向左移动；
+                    }, 1000);
+                }
+                console.log(sw);
+            }, 5000);
+            slideBox.hover(function () {
+                clearInterval(timer);
+            }, function () {
+                timer = setInterval(function () {
+                    sw++;
+                    if (sw == number.length) {
+                        sw = 0
+                        ul.animate({
+                            'right': 0
+                        }, 2000)
+                    };
+                    if (number.length > 1) {
+                        ul.animate({
+                            "right": oneWidth * sw, //ul标签的动画为向左移动；
+                        }, 1000);
+                    }
+                }, 5000);
+            })
+        }
+        //公用tab
+        Page.prototype.tabsfun = function (btn, fun) {
+            var that = this;
+            btn.on('click', function () {
+                var index = $(this).index();
+                $(this).addClass('active').siblings().removeClass('active');
+                fun && fun(index);
+            });
+            fun && fun();
+        }
+        //企业渲染
+        Page.prototype.randEnter = function () {
+            var that = this;
+            var data = that.getEnterData.data;
+            var htmltext = '';
+            var ihtml = [];
+            for (var i = 0; i < data.length; i++) {
+                ihtml.push('<div>'
+                    + '<img src="' + data[i].img + '" width="192"/>'
+                    + '<p  class="txt-align">' + (!data[i].title ? '' : data[i].title) + '</p>'
+                    + '</div>')
+
+            }
+            var len = ihtml.length / 5;
+            len = parseInt(ihtml.length % 5 != 0 ? len + 1 : len);
+
+            for (var i = 0; i < len; i++) {
+                var start = i * 5;
+                var end = start + 5;
+                end = end > ihtml.length ? ihtml.length : end;
+                ihtml.slice(start, end);
+
+                htmltext += '<li>' +
+                    '' + (ihtml.slice(start, end)).join("") + '' +
+                    '</li>'
+            }
+            $(".enterprise-list").html(htmltext);
+            // that.changeTab($('.coo'));
+
+        }
+        //业务内容
+        Page.prototype.businessContent = function (index) {
+            var that = this;
+            index = index ? index : 0;
+            var data = that.getBusinessData.data;
+            var htmltext = '';
+            for (var k = 0; k < data.length; k++) {
+                if (k == index) {
+                    htmltext = '<div class="busin-content">' + data[k].content + '</div>'
+                        + '<img src="' + data[k].img + '" alt="" width="961" height="370">'
+                }
+            }
+            $(".busin-tabcon").html(htmltext);
+        }
+        //新闻内容
+        Page.prototype.setNewsCon = function (index) {
+            var that = this;
+            index = index ? index : 0;
+            var data = that.getNews.data;
+            var tt = [];
+            var htmltext = '';
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].type == index + 1) {
+                    tt.push(data[i]);
+                }
+            }
+            for (var k in tt.slice(0, 3)) {
+                htmltext += '<div class="news-n-li">' +
+                    '<a href="news-child.html?articleId=' + tt[k].id + '">' +
+                    '<div class="f0">' +
+                    '<div class="box-siz w3 v-middle">' +
+                    '<img class="news-n-img lh100" src="' + tt[k].img + '" alt="" width="260" height="164">' +
+                    '</div>' +
+                    '<div class="box-siz w7 v-middle news-li-box">' +
+                    '<div class="lh100">' +
+                    '<span class="box-siz w8 news-n-title txt-align-l">' + tt[k].title + '</span>' +
+                    '<span class="box-siz w2 news-n-time txt-align-r">' + tt[k].updateTime.substring(0, 10) + '</span>' +
+                    '</div>' +
+                    '<div class="news-n-content txt-align-l">' + that.showHtml(tt[k].content, 90, "  ......") + '</div>' +
+                    '<div class="news-n-btn txt-align-l">查看详情—</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</a>' +
+                    '</div>'
+            }
+            $('#newsListBox').html(htmltext);
+            that.hoverNewsLi();
+
+        }
+        //业务数据
+        Page.prototype.getBusinessData = function (fun) {
+            var that = this;
+            $.ajax({
+                url: 'website/business/list',
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    that.getBusinessData.data = datas.result;
+                    fun && fun();
+                },
+                error: function (d, msg) {
+                    console.log("Could not find user " + msg);
+                }
+            });
+        }
+        //新闻数据
+        Page.prototype.getNews = function (fun) {
+            var that = this;
+            $.ajax({
+                url: 'website/news/list',
+                type: 'POST',
+                dataType: 'json',
+                success: function (datas) {
+                    that.getNews.data = datas.result;
+                    fun && fun();
+                },
+                error: function (d, msg) {
+                    console.log("Could not find user " + msg);
+                }
+            });
+        }
+        //大数据
+        Page.prototype.getBigData = function (fun) {
+            var that = this;
+            $.ajax({
+                url: 'website/bigdata/list',
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    that.getBigData.data = datas.result;
+                    fun && fun();
+                },
+                error: function (d, msg) {
+                    console.log("Could not find user " + msg);
+                }
+            });
+        }
+        //企业资质
+        Page.prototype.getEnterData = function (index, fun) {
+            var that = this;
+            index = index ? index + 1 : 1;
+            $.ajax({
+                url: 'website/banner/list',
+                type: 'POST',
+                dataType: "json",
+                data: {
+                    "type": "4",
+                    "businessType": index
+                },
+                success: function (datas) {
+                    that.getEnterData.data = datas.result;
+                    fun && fun();
+                },
+                error: function (d, msg) {
+                    console.log("Could not find user " + msg);
+                }
+            });
+        }
+        // banner data
+        Page.prototype.getBannerData = function (fun) {
+            var that = this;
+            $.ajax({
+                url: 'website/banner/list',
+                type: 'POST',
+                dataType: "json",
+                data: {
+                    "type": "1"
+                },
+                success: function (datas) {
+                    that.getBannerData.data = datas.result;
+                    fun && fun();
+                },
+                error: function (d, msg) {
+                    console.log("Could not find user " + msg);
+                }
+            });
+        }
+        //数字特效
+        Page.prototype.animateNumFun = function () {
+            var that = this;
+            var num = that.getBigData.data;
+            for (var i = 0; i < num.length; i++) {
+                $("#count-number" + i).animateNumber({
+                    number: num[i].number,
+                    numberStep: function (now, tween) {
+                        var target = $(tween.elem);
+                        target.prop('number', now).html(that.fmoneyCN(now, 0));
+                    }
+                }, 3000);
+            }
+        }
+
+        Page.prototype.fmoneyCN = function (s, n) {
+            n = n >= 0 && n <= 20 ? n : 2;
+            s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + ""; //精度
+            var l = s.split(".")[0].split(""),
+                r = s.split(".")[1], //remind
+                t = "";
+            var CN_TEN_THOUSAND = "<span class='f_size'>,</span>";
+            var CN_HUNDRED_MILLION = "<span class='f_size'>,</span>";
+            //var CN_UNIT = "<span class='f_size'>元</span>";
+            if (l.length < 5) {
+                //return s + CN_UNIT;
+                return s;
+            }
+            for (i = 0; i < l.length; i++) {
+                if (i == (l.length - 9)) {
+                    t += l[i] + CN_HUNDRED_MILLION + "";
+                } else if (i == (l.length - 5)) {
+                    t += l[i] + CN_TEN_THOUSAND + "";
+                } else {
+                    t += l[i];
+                }
+            }
+            //return t.split("").join("") + CN_UNIT;
+            return t.split("").join("");
+        }
+
+        Page.prototype.showHtml = function (str, length, endstr) {
+            if (str != null) {
+                var html = str.replace(/<[^>]+>/g, "").replace(/&nbsp;/ig, "").substring(0, length) + endstr;
+                return html;
+            }
+            return null;
+        }
+
+        Page.prototype.showFlowUp = function () {
+            var that = this;
+            that.mouseLazySize = 400;
+            that.mouseLazy = 0;
+            $(document).on("mousewheel DOMMouseScroll", function (e) {
+                var delta = (e.originalEvent.wheelDelta && (e.originalEvent.wheelDelta > 0 ? 1 : -1)) ||  // chrome & ie
+                    (e.originalEvent.detail && (e.originalEvent.detail > 0 ? -1 : 1));              // firefox
+                var len = e.originalEvent.wheelDelta;
+                if (len > 0) {
+                    // 向上滚
+                    that.mouseLazy = 0;
+                } else if (len < 0) {
+                    // 向下滚
+                    if (Math.abs(that.mouseLazy) > that.mouseLazySize) {
+                        that.mouseLazySize = 0;
+                        console.log("wheeldown");
+                        $("body").flowUp(".anime", { transalteY: 350, duration: 1 });
+                    } else {
+                        that.mouseLazy -= len;
+                    }
+                }
+            });
+
+        }
+
+        Page.prototype.hoverNewsLi = function () {
+            $('.news-n-li').eq(0).addClass('active');
+            $('.news-n-li').hover(function () {
+                index = $(this).index();
+                $('.news-n-li').eq(index).addClass('active').siblings().removeClass('active');
+
+            })
+        }
+
+        return Page;
+    })();
+
+    $(function () {
+        var page = new Page();
+        page.init();
+        page.showFlowUp();
+        $('#fixed_box').load('component/sidebar.html');
+    
+        $("#footer_box").load("component/footer.html");
+        
+    });
+
+</script>
+
+</html>

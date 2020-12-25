@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新闻中心</title>
+    <link rel="stylesheet" type="text/css" href="css/public.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/pages.css">
+    <link rel="stylesheet" type="text/css" href="css/global.css" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/public.js"></script>
+    <script src="js/js.js"></script>
+    <script type="text/javascript">
+
+        // $(function(){
+        //     $.ajax({
+        //         url: 'website/news/list',
+        //         type: 'POST',
+        //         dataType: "json",
+        //         data: {
+        //             'type': '2'
+        //         },
+        //         success: function(datas) { //请求成功后处理函数。
+        //             var data = datas.result
+        //                 // console.log(datas)
+        //             var htmltext = '';
+        //             for (var i in data) {
+        //                 htmltext += '<div class="col-sm-12 col-md-4">' +
+        //                     '<a href="news-child.html?articleId=' + data[i].id + '"  target="_blank">' +
+        //                     '<div class="f1">' +
+        //                     '<span>' +
+        //                     '<img src="' + data[i].img + '"/ alt="" width="262">' +
+        //                     '</span>'
+
+        //                 +
+        //                 '<h2 class="f-tit">' + data[i].title + '</h2>' +
+        //                     '<p class="f-cont">' + showHTML(data[i].content, 200, "  ......") + '</p>' +
+        //                     '<p class="f-time">' + data[i].updateTime.substring(0, 10) + '</p>'
+
+        //                 +
+        //                 '</div>' +
+        //                 '</a>' +
+        //                 '</div>'
+        //             }
+        //             $(".focus .container").html(htmltext);
+
+        //         },
+        //         error: function(d, msg) {
+        //             console.log("Could not find user " + msg);
+        //         }
+        //     });
+
+        // });
+
+        $(function () {
+            $("#footer_box").load("component/footer.html");
+            var dt;
+            var agg = {};
+            var ihtml = [];
+            $.ajax({
+                url: 'website/news/list',
+                type: 'POST',
+                dataType: "json",
+                data: {
+                    'type': '2'
+                },
+                success: function (datas) { //请求成功后处理函数。
+                    dt = datas.result
+                    data = datas.result
+                    console.log(datas)
+                    for (var i=0; i<data.length; i++) {
+                        ihtml.push('<div class="news-n-li">' +
+                        '<a href="news-child.html?articleId=' + data[i].id + '">'+
+                        '<div class="f0">' +
+                        '<div class="box-siz w3 v-middle">' +
+                        '<img class="news-n-img lh100" src="' + data[i].img + '" alt="" width="260" height="164">' +
+                        '</div>' +
+                        '<div class="box-siz w7 v-middle news-li-box">' +
+                        '<div class="lh100">' +
+                        '<span class="box-siz w8 news-n-title txt-align-l">' + data[i].title + '</span>' +
+                        '<span class="box-siz w2 news-n-time txt-align-r">' + data[i].updateTime.substring(0, 10) + '</span>' +
+                        '</div>' +
+                        '<div class="news-n-content txt-align-l">' + showHTML(data[i].content, 90, "  ......") + '</div>' +
+                        '<div class="news-n-btn txt-align-l">查看详情—</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</a>' +
+                        '</div>')
+
+                    }
+
+                    var cp = 12;
+                    var len = ihtml.length / cp;
+                    len = parseInt(ihtml.length % cp != 0 ? len + 1 : len);
+
+                    for (var i = 0; i < len; i++) {
+                        var start = i * cp;
+                        var end = start + cp;
+                        end = end > ihtml.length ? ihtml.length : end;
+                        ihtml.slice(start, end);
+                        console.log(ihtml.slice(start, end));
+                        agg[i] = (ihtml.slice(start, end));
+                        htmltext = '' +
+                            '' + (ihtml.slice(start, end)).join("") + '' +
+                            ''
+                    }
+                    ss(len);
+                },
+                error: function (d, msg) {
+                    console.log("Could not find user " + msg);
+                }
+            });
+
+            var htmltext = '';
+            function ss(ind) {
+                
+                var i = 0;
+                i!=0? agghtml(agg[i]) : agghtml(agg[0]);
+                $("#pagination1").pagination({
+                    currentPage: 1,
+                    totalPage: ind,
+                    callback: function (current) {
+                        $("#current1").text(current)
+                        console.log(current);
+                        i = current-1;
+                        agghtml(agg[i]);
+                    }
+                });
+            }
+
+            function agghtml(arr) {
+                htmltext = '' +
+                            '' + arr.join("") + '' +
+                            ''
+
+                            $(".focus .container").html(htmltext);
+            }
+        });
+
+        function showHTML(str, length, endstr) {
+            if (str != null) {
+                var html = str.replace(/<[^>]+>/g, "").replace(/&nbsp;/ig, "").substring(0, length) + endstr;
+                return html;
+            }
+            return null;
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="topbox">
+        <div class="head clearfloat">
+            <div class="logo clearfloat">
+                <!-- <em></em> <span>智慧消防大数据云平台</span> -->
+                <img class="new-logo-style" src="temp/logo.png" alt="">
+            </div>
+            <div class="nav">
+                <ul class="clearfloat">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="Company.html">关于我们</a>
+                        <div class="nav_down">
+                            <p><a href="Company.html">公司简介</a></p>
+                            <p><a href="culture.html">企业文化</a></p>
+                            <p><a href="team.html">团队文化</a></p>
+                            <p><a href="job.html">公司招聘</a></p>
+                        </div>
+                    </li>
+                    <li><a href="http://www.sthjnet.com/#/" target="_blank">神通货金</a></li>
+                    <li class="active"><a href="news.html">新闻中心</a>
+                        <div class="nav_down">
+                            <p><a href="news.html">神通动态</a></p>
+                            <p><a href="industry.html">行业资讯</a></p>
+                        </div>
+                    </li>
+                    <!-- <li><a href="job.html">人才招聘</a></li> -->
+                    <li><a href="aboutUs.html">联系我们</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--top-->
+    <div class="gl-bg news-bg">
+        <div class="agent_top coverage">
+            <!-- <h2>新闻中心</h2> -->
+        </div>
+    </div>
+
+    <!-- company-nav -->
+    <div class="company-nav-box">
+        <div class="coverage txt-align">
+            <div class="company-link-btn f0">
+                <a class="box-siz w5 " href="news.html">公司动态</a>
+                <a class="box-siz w5 active" href="industry.html">行业资讯</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="">
+        <div class="focus coverage txt-align">
+            <div class="focus-1 container">
+                
+                <div class="news-n-li anime">
+                    <div class="f0">
+                        <div class="box-siz w3 v-middle">
+                            <img class="news-n-img lh100" src="img/news_1.png" alt="" width="260" height="164">
+                        </div>
+                        <div class="box-siz w7 v-middle news-li-box">
+                            <div class="lh100">
+                                <span
+                                    class="box-siz w8 news-n-title txt-align-l">致敬神通人——未来可期，我们一路前行！致敬神通人——未来可期，我们一路前行！致敬神通人——未来可期，我们一路前行！</span>
+                                <span class="box-siz w2 news-n-time txt-align-r">2020.01.20</span>
+                            </div>
+                            <div class="news-n-content txt-align-l">
+                                安徽神通物联网科技有限公司简称“神通物联网”，2016年正式成立，2017年3月被交通部认定为“无车承运人”国家试点企业。公司主营业务：网络货运+物流金融+物流供应链，是完全基于互联网平台,运用现代科学技术及大数据、云计算等手段,实现“线上资源合理配置，线下物流高效运行”的现代化...
+                            </div>
+                            <a class="news-n-btn txt-align-l" href="news.html">查看详情—</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+
+        <div id="pagination1" class="pages fl"></div>
+    </div>
+    <!-- <div class="box2"></div> -->
+
+    <!-- footer -->
+    <div class="footer-box" id="footer_box"></div>
+
+</body>
+<script src="js/page.js"></script>
+
+
+</html>

@@ -1,0 +1,57 @@
+<div class="head clearfloat">
+    <div class="logo clearfloat">
+        <img class="new-logo-style" src="temp/logo.png" alt="">
+    </div>
+    <div class="nav">
+        <ul class="clearfloat">
+            <li><a href="index.html">首页</a></li>
+            <li class="active"><a href="Company.html">关于我们</a>
+                <div class="nav_down">
+                    <p><a href="Company.html">公司简介</a></p>
+                    <p><a href="culture.html">企业文化</a></p>
+                    <p><a href="team.html">团队文化</a></p>
+                    <p><a href="job.html">公司招聘</a></p>
+                </div>
+            </li>
+            <li><a href="http://www.sthjnet.com/#/" target="_blank">神通货金</a></li>
+            <li><a href="news.html">新闻中心</a>
+                <div class="nav_down">
+                    <p><a href="news.html">神通动态</a></p>
+                    <p><a href="industry.html">行业资讯</a></p>
+                </div>
+            </li>
+            <li><a href="aboutUs.html">联系我们</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script src="../js/public.js"></script>
+<script>
+    if (("onhashchange" in window) && ((typeof document.documentMode === "undefined") || document.documentMode == 8)) {
+        // 浏览器支持onhashchange事件
+        window.onhashchange = hashChangeFire;  // TODO，对应新的hash执行的操作函数
+    } else {
+        // 不支持则用定时器检测的办法
+        setInterval(function () {
+            var ischanged = isHashChanged();  // TODO，检测hash值或其中某一段是否更改的函数
+            if (ischanged) {
+                hashChangeFire();  // TODO，对应新的hash执行的操作函数
+            }
+        }, 150);
+    }
+    function hashChangeFire(){ alert("URL产生了变化") }
+        // window.addEventListener('DOMContentLoaded', onLoad);
+        // window.addEventListener('hashchange', onHashChange);
+        // function onLoad() {
+        //     onHashChange();
+        // }
+        // function onHashChange() {
+        //     console.log(location.hash);
+        // }
+
+        // function index(url){
+        //     console.log(url);
+        //     Event.click(url);
+        // }
+
+</script>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们</title>
+    <link rel="stylesheet" type="text/css" href="css/public.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/com.css">
+    <link rel="stylesheet" type="text/css" href="css/global.css" />
+    <link href="css/swiper.min.css" rel="stylesheet" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/public.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <script>
+        var Page = (function () {
+            var Page = function (opt) {
+                this.init();
+            };
+            //init
+            Page.prototype.init = function () {
+                var that = this;
+                this.getIntroduce(function () {
+                    that.renderIntroduce();
+                })
+                this.getDevelopment();
+                this.swiperView();
+                this.triangleHeigth();
+            }
+            //管理团队 未启用
+            Page.prototype.getManagement = function (fun) {
+                var that = this;
+                $.ajax({
+                    url: 'website/management/list',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (datas) {
+                        console.log(datas);
+                        that.getManagement.data = datas.result;
+                        fun && fun();
+                    },
+                    error: function (d, msg) {
+                        console.log("Could not find user " + msg);
+                    }
+                });
+            }
+            //管理团队 未启用
+            Page.prototype.renderManagement = function () {
+                var that = this;
+                var data = that.getManagement.data;
+                var htmltext = '';
+                var navtext = '';
+                for (var i in data) {
+                    var h5 = '';
+                    if (i == 0) {
+                        h5 = 'active-nav swiper-slide-active';
+                    } else if (i == 1) {
+                        h5 = 'swiper-slide-next';
+                    }
+                    htmltext += '<div class="swiper-slide ' + h5 + '" style="width: 1110px;">'
+                        + '<div class="img">'
+                        + '<img style="width:540px; height: 554px;" src="' + data[i].img + '">'
+                        + '</div>'
+                        + '<div class="txt">'
+                        + '<div class="title">'
+                        + '<span class="cn">管理团队</span>'
+                        + '</div>'
+                        + '<div class="cont">'
+                        + '<div class="name">'
+                        + '<span>' + data[i].name + '</span>'
+                        + '<span class="cn">' + data[i].position + '</span>'
+                        + '</div>'
+                        + '<p >' + data[i].content + '</p>'
+                        + '</div>'
+                        + '</div>'
+                        + '</div>'
+                    navtext += '<div class="swiper-slide ' + h5 + '">'
+                        + '<div class="img">'
+                        + '<img src="' + data[i].img + '" alt="">'
+                        + '</div>'
+                        + '</div>'
+                }
+                $('.ss').html(htmltext);
+                $('.tt').html(navtext);
+                swiperView();
+            }
+            //企业简介
+            Page.prototype.getIntroduce = function (fun) {
+                var that = this;
+                $.ajax({
+                    url: 'website/introduce/list',
+                    type: 'POST',
+                    dataType: "json",
+                    data: {
+                        "type": "1"
+                    },
+                    success: function (datas) { //请求成功后处理函数。
+                        that.getIntroduce.data = datas.result;
+                        fun && fun();
+                    },
+                    error: function (d, msg) {
+                        console.log("Could not find user " + msg);
+                    }
+                });
+            }
+            //渲染企业简介
+            Page.prototype.renderIntroduce = function () {
+                var that = this;
+                var data = that.getIntroduce.data;
+                var htmltext = '';
+                console.log(data);
+                for (var i in data) {
+                    htmltext += '' + data[i].richtext + ''
+                }
+                $(".gsjj").html(htmltext);
+            }
+            //时间轴接口
+            Page.prototype.getDevelopment = function (fun) {
+                var that = this;
+                $.ajax({
+                    url: 'website/development/list',
+                    type: 'POST',
+                    dataType: "json",
+                    success: function (datas) {
+                        console.log(datas);
+                        that.getDevelopment.data = datas.result;
+                        fun && fun();
+                    },
+                    error: function (d, msg) {
+                        console.log("Could not find user " + msg);
+                    }
+                });
+            }
+            //时间轴效果
+            Page.prototype.swiperView = function () {
+                var viewSwiper = new Swiper('.time_c .swiper-container', {
+                    onSlideChangeStart: function () {
+                        updateNavPosition();
+                    }
+                })
+                $('.g-wrap .arrow-left').on('click', function (e) {
+                    e.preventDefault();
+                    viewSwiper.slidePrev();
+                });
+                $('.g-wrap .arrow-right').on('click', function (e) {
+                    e.preventDefault();
+                    viewSwiper.slideNext();
+                });
+                $('.timelist .swiper-slide').hover(function () {
+                    console.log($(this).index());
+                    viewSwiper.slideTo($(this).index());
+                });
+                var previewSwiper = new Swiper('.timelist .swiper-container', {
+                    //visibilityFullFit: true,
+                    slidesPerView: 'auto',
+                    allowTouchMove: false,
+                    onTap: function () {
+                        viewSwiper.slideTo(previewSwiper.clickedIndex)
+                    }
+                });
+                function updateNavPosition() {
+                    $('.timelist .active-nav').removeClass('active-nav')
+                    var activeNav = $('.timelist .swiper-slide').eq(viewSwiper.activeIndex).addClass('active-nav')
+                    if (!activeNav.hasClass('swiper-slide-visible')) {
+                        if (activeNav.index() > previewSwiper.activeIndex) {
+                            var thumbsPerNav = Math.floor(previewSwiper.width / activeNav.width()) - 1
+                            previewSwiper.slideTo(activeNav.index() - thumbsPerNav)
+                        } else {
+                            previewSwiper.slideTo(activeNav.index())
+                        }
+                    }
+                }
+
+            }
+            
+            Page.prototype.triangleHeigth = function () {
+                var that = this;
+                var o = $('.swiper-slide:nth-child(even) p');
+                var s = $('.swiper-slide:nth-child(even) p .small-triangle');
+                for(var i=0;i<o.length;i++){
+                    var h = o[i].clientHeight;
+                    $(s).eq(i).css("top", h);
+                }
+            }
+            return Page;
+        })();
+        $(function () {
+            var page = new Page();
+            $("#footer_box").load("component/footer.html");
+            //管理团队
+            //企业环境
+            // $.ajax({
+            //     url: 'website/banner/list',
+            //     type: 'POST',
+            //     dataType: "json",
+            //     data: {
+            //         "type": "2"
+            //     },
+            //     success: function (datas) { //请求成功后处理函数。
+            //         var htmltext = '';
+            //         var spanBoxht = '';
+            //         var data = datas.result;
+            //         console.log(data);
+            //         var ihtml = [];
+            //         for (var i in data) {
+            //             ihtml.push('<div class="col-md-3 col-sm-6 col-xs-6">'
+            //                 + '<img src="' + data[i].img + '" width="240" height="180"/>'
+            //                 + '</div>')
+            //         }
+            //         var len = ihtml.length / 4;
+            //         len = parseInt(ihtml.length % 4 != 0 ? len + 1 : len);
+            //         for (var i = 0; i < len; i++) {
+            //             var start = i * 4;
+            //             var end = start + 4;
+            //             end = end > ihtml.length ? ihtml.length : end;
+            //             ihtml.slice(start, end);
+            //             htmltext += '<li>' +
+            //                 '' + (ihtml.slice(start, end)).join("") + '' +
+            //                 '</li>'
+            //             spanBoxht += '<span></span>'
+            //         }
+            //         $(".coop-ul").html(htmltext);
+            //         $(".spanBox").html(spanBoxht);
+            //         changeTab()
+            //     },
+            //     error: function (d, msg) {
+            //         console.log("Could not find user " + msg);
+            //     }
+            //});
+
+        });
+    </script>
+</head>
+
+<body>
+    <div class="topbox">
+        <div class="head clearfloat">
+            <div class="logo clearfloat">
+                <!-- <em></em> <span>智慧消防大数据云平台</span> -->
+                <img class="new-logo-style" src="temp/logo.png" alt="">
+            </div>
+            <div class="nav">
+                <ul class="clearfloat">
+                    <li><a href="index.html">首页</a></li>
+                    <li class="active"><a href="Company.html">关于我们</a>
+                        <div class="nav_down">
+                            <p><a href="Company.html">公司简介</a></p>
+                            <p><a href="culture.html">企业文化</a></p>
+                            <p><a href="team.html">团队文化</a></p>
+                            <p><a href="job.html">公司招聘</a></p>
+                        </div>
+                    </li>
+                    <li><a href="http://www.sthjnet.com/#/" target="_blank">神通货金</a></li>
+                    <li><a href="news.html">新闻中心</a>
+                        <div class="nav_down">
+                            <p><a href="news.html">神通动态</a></p>
+                            <p><a href="industry.html">行业资讯</a></p>
+                        </div>
+                    </li>
+                    <!-- <li><a href="job.html">人才招聘</a></li> -->
+                    <li><a href="aboutUs.html">联系我们</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <!--top-->
+    <div class="gl-bg company-bg">
+        <div class="agent_top coverage">
+            <!-- <h2>企业文化</h2> -->
+        </div>
+    </div>
+    <!-- company-nav -->
+    <div class="company-nav-box">
+        <div class="coverage txt-align">
+            <div class="company-link-btn f0">
+                <a class="box-siz w25 active" href="Company.html">公司简介</a>
+                <a class="box-siz w25" href="culture.html">企业文化</a>
+                <a class="box-siz w25" href="team.html">团队文化</a>
+                <a class="box-siz w25" href="job.html">公司招聘</a>
+            </div>
+        </div>
+    </div>
+    <!-- end -->
+    <div class="com-box">
+        <div class="com-b-tit coverage txt-align">
+            <div class="h-title h-company">公司简介</div>
+            <p class="gsjj txt-align-l"></p>
+            <!-- <p>
+                安徽神通物联网科技有限公司简称“神通物联网”，2016年正式成立，2017年3月被交通部认定为“无车承运人”国家试点企业，并在2020年取得了第一批“网络货运”资质。公司主营业务：网络货运+物流金融+物流供应链，是完全基于互联网平台，运用现代科学技术及大数据、云计算等手段，实现“线上资源合理配置，线下物流高效运行”的现代化科技物流企业。
+            </p>
+            <p>
+                2018年公司推出“神通货金”一站式智慧货运综合服务云平台，利用现代互联网科技，运行线上的“无车承运人”业务，通过运力共享联盟建设，措建可信、优质、
+                智慧的货运综合服务体系，“神通货金”平台主要服务内容包括货运交易高效匹配、货运在途智慧管控、车、货、保险、金融一体化综合服务。现控股公司有安徽神通建材贸易有限公司，安徽神通咨询服务科技有限公司，安徽神通能源科技有限公司。
+            </p>
+            <p>
+                2019年怀远投资集团有限公司控股神通物联网。怀远投资集团有限公司是怀远县政府全资控股的大型国有企业，投资领域涵盖资产管理、房地产、保险、汽车、能源、融资担保、物联网、供应链金融等多个领域，管理资产规模近400亿元，旗下两家公司获评主体信用AA级，在皖北地区首屈一指。
+            </p> -->
+        </div>
+    </div>
+
+    <!-- time line -->
+    <div class="s_about">
+        <div class="n_part2">
+            <div class="g-wrap">
+                <div class="cont" style="overflow:hidden;">
+                    <div class="s_title">
+                        <span class="cn">发展历程</span>
+                    </div>
+                    <!-- <a class="arrow-left" href="javascript:;"></a>
+                    <a class="arrow-right" href="javascript:;"></a> -->
+                    <div class="s_history">
+                        <div class="timelist">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide active-nav">
+                                        <p><span>2020.7</span><b class="small-triangle"></b>
+                                            7月获得怀远县投资集团公司股权投资和重点扶持
+                                        </p>
+                                    </div>
+                                    <div class="swiper-slide ">
+                                        <p><span>2020.5</span><b class="small-triangle"></b>
+                                            5月获得安徽省首批“网络货运”资质
+                                        </p>
+                                    </div>
+                                    <div class="swiper-slide ">
+                                        <p><span>2019.10</span><b class="small-triangle"></b>
+                                            10月15日通过安徽省交通运输厅获得“无船承运人”业务经营备案
+                                        </p>
+                                    </div>
+                                    <div class="swiper-slide ">
+                                        <p><span>2019.4</span><b class="small-triangle"></b>
+                                            4月获得神通“总部经济”认定
+                                        </p>
+                                    </div>
+                                    <div class="swiper-slide ">
+                                        <p><span>2018</span><b class="small-triangle"></b>
+                                            2月被蚌山区授予“新经济 新业态”先进企业；2019年7月，获得怀远县投资集团公司股权投资和重点扶持。
+                                        </p>
+                                    </div>
+                                    <div class="swiper-slide ">
+                                        <p><span>2017.11</span><b class="small-triangle"></b>
+                                            被中国物流采购联合会授予物流信息服务平台分会副会长单位；
+                                        </p>
+                                    </div>
+                                    <div class="swiper-slide ">
+                                        <p><span>2017.7</span><b class="small-triangle"></b>
+                                            我司作为现代物流科技型企业纳入蚌埠市蚌山区政府重点示范单位；
+                                        </p>
+                                    </div>
+                                    <div class="swiper-slide ">
+                                        <p><span>2017.3</span><b class="small-triangle"></b>
+                                            交通部被认定为“无车承运人”国家试点企业，获得试点资格；
+                                        </p>
+                                    </div>
+                                    <div class="swiper-slide ">
+                                        <p><span>2016</span><b class="small-triangle"></b>
+                                            3月与上海同济大学中国物流研究中心签订战略协议；
+                                        </p>
+                                    </div>
+                                    <div class="swiper-slide ">
+                                        <p><span>2015</span><b class="small-triangle"></b>
+                                            6月公司核心团队组建完毕；
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="time_c">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <!-- <p class="MsoNormal">
+                                            <span style="">7月获得怀远县投资集团公司股权投资和重点扶持</span>
+                                        </p> -->
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <!-- <p class=" MsoNormal ">
+                                            <span style="">2020</span><span>5月获得安徽省首批“网络货运”资质</span>
+                                        </p> -->
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <!-- <p class=" MsoNormal ">
+                                            <span style="">10月15日通过安徽省交通运输厅获得“无船承运人”业务经营备案</span>
+                                        </p> -->
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <!-- <p class="MsoNormal">
+                                            <span style="">4月获得神通“总部经济”认定</span>
+                                        </p> -->
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <!-- <p style="white-space:normal;">
+                                            2月被蚌山区授予“新经济 新业态”先进企业；2019年7月，获得怀远县投资集团公司股权投资和重点扶持。
+                                        </p> -->
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <!-- <p>
+                                            被中国物流采购联合会授予物流信息服务平台分会副会长单位；
+                                        </p> -->
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <!-- <p>
+                                            我司作为现代物流科技型企业纳入蚌埠市蚌山区政府重点示范单位；
+                                        </p> -->
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <!-- <p>
+                                            交通部被认定为“无车承运人”国家试点企业，获得试点资格；
+                                        </p> -->
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <!-- <p>
+                                            3月与上海同济大学中国物流研究中心签订战略协议；
+                                        </p> -->
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <!-- <p>
+                                            6月公司核心团队组建完毕；
+                                        </p> -->
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gsjj-new-box">
+        <div class="coverage txt-align">
+            <div class="h-title h-gsjj">企业环境</div>
+            <img class="gsjj-new-imgs" src="images/gs.png" width="1200" alt="">
+        </div>
+    </div>
+
+    <div class="boss-modular">
+        <div class="coverage txt-align">
+            <div class="f0">
+                <div class="box-siz w4 v-bottom txt-align-r">
+                    <img class="boss-img" src="images/boss.png" alt="">
+                </div>
+                <div class="box-siz w6 v-bottom txt-align-l boss-jj-box">
+                    <div class="boss-name">
+                        <span>赵开涛</span>
+                        <span>董事长</span>
+                    </div>
+                    <div class="boss-brief">
+                        <p>中国管理科学研究院科技管理研究所副所长；</p>
+                        <p>荣获“中国行业品牌领军人物” 蚌埠市政协委员，怀远县政协常委，中国科学技术大学企业家校友会会员；</p>
+                        <p>三十多年大型企业管理经验，多次创业成功经验 在企业管理，品牌运营，数据管理等领域有卓越成就；</p>
+                    </div>
+                    <img src="images/b_01.png" width="50" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer-box" id="footer_box"></div>
+
+
+
+</body>
+
+</html>

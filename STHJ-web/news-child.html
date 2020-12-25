@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新闻详情</title>
+    <link rel="stylesheet" type="text/css" href="css/public.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/newc.css" />
+    <link rel="stylesheet" type="text/css" href="css/global.css" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/public.js"></script>
+    <script type="text/javascript" src="js/getUrlParam.js"></script>
+    <script type="text/javascript">
+        var articleId = UrlParm.parm('articleId');
+        console.log(articleId)
+        $(function () {
+            $("#footer_box").load("component/footer.html");
+            $.ajax({
+                url: 'website/news/getDetail',
+                type: 'POST',
+                dataType: "json",
+                data: {
+                    'id': articleId
+                },
+                success: function (datas) { //请求成功后处理函数。
+                    console.log(datas)
+                    var data = datas.result
+                    console.log(data)
+                    var htmltext = '';
+                    htmltext = '<section>' +
+                        '<h2 id="activity-name" class="nsc-hed  txt-align">' +
+                        '<span>' + data.title + '</span>' +
+                        '</h2>' +
+                        '<section class="nsc-p1">' + data.richtext + '</section>' +
+                        '</section>'
+
+                    $(".nede").html(htmltext);
+                    if (data.type == '1') {
+                        $(".company-link-btn a:first-child").addClass('active').siblings().removeClass('active');
+                    } else {
+                        $(".company-link-btn a:last-child").addClass('active').siblings().removeClass('active');
+                    }
+                    if (data.type >= '3' || !data.type) {
+                        $('.dis1').css({
+                            "display": "none"
+                        });
+                    } else if (data.type <= '2' || !data.type) {
+                        $('.dis2').css({
+                            "display": "none"
+                        });
+                    }
+
+                },
+                error: function (d, msg) {
+                    console.log("Could not find user " + msg);
+                }
+            });
+        })
+    </script>
+</head>
+
+<body>
+    <div class="topbox">
+        <div class="head clearfloat">
+            <div class="logo clearfloat">
+                <!-- <em></em> <span></span> -->
+                <img class="new-logo-style" src="temp/logo.png" alt="">
+            </div>
+            <div class="nav">
+                <ul class="clearfloat">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="Company.html">关于我们</a>
+                        <div class="nav_down">
+                            <p><a href="Company.html">公司简介</a></p>
+                            <p><a href="culture.html">企业文化</a></p>
+                            <p><a href="team.html">团队文化</a></p>
+                            <p><a href="job.html">公司招聘</a></p>
+                        </div>
+                    </li>
+                    <li><a href="http://www.sthjnet.com/#/" target="_blank">神通货金</a></li>
+                    <li class="active"><a href="news.html">新闻中心</a>
+                        <div class="nav_down">
+                            <p><a href="news.html">神通动态</a></p>
+                            <p><a href="industry.html">行业资讯</a></p>
+                        </div>
+                    </li>
+                    <!-- <li><a href="job.html">人才招聘</a></li> -->
+                    <li><a href="aboutUs.html">联系我们</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- company-nav -->
+
+    <!--top-->
+
+    <div class="about_ban">
+        <div class="agent_top">
+            <!-- <h2>联系我们</h2> -->
+            <!-- <div class="agent_info">
+                        了解更多
+                    </div>
+                    <div class="agent_more">
+                        <a href="">了解更多</a>
+                    </div> -->
+        </div>
+    </div>
+    <!-- <div class="company-nav-box">
+        <div class="company-nav-content dis1">
+            <div class="row txt-align company-link-btn">
+                <a class="col-md-6 " href="news.html">公司动态</a>
+                <a class="col-md-6 " href="industry.html">行业资讯</a>
+            </div>
+        </div>
+        <div class="company-nav-content dis2">
+            <div class="row txt-align company-link-btn">
+                <a class="col-md-3" href="Company.html">公司简介</a>
+                <a class="col-md-3" href="culture.html">企业文化</a>
+                <a class="col-md-3 active" href="team.html">团队文化</a>
+                <a class="col-md-3" href="job.html">公司招聘</a>
+            </div>
+        </div>
+    </div> -->
+    <div class="news-child-box nede">
+        <!-- <section class=""> -->
+        <!-- <h2 id="activity-name" class="nsc-hed  txt-align">
+                    <span>
+                        安徽神通物联网科技有限公司，荣膺2019年度怀远县财税突出贡献奖！</span>
+                </h2>
+
+                <section>
+
+
+                    <p class="nsc-p1">
+                        <span>
+                            5月25日上午，由怀远县委县政府组织，怀远县经济和信息化局承办的怀远县工业攻坚年暨民营经济发展大会，在怀远县行政会议中心隆重召开。安徽神通物联网科技有限公司负责人赵开涛先生应邀出席本次会议。
+                        </span>
+                    </p>
+
+                    <p class="nsc-p1">
+                        <img src="images/n01.jpg" />
+                    </p>
+
+                    <p class="nsc-p1">
+                        <span>
+                            召开本次大会，正是政府为了聆听企业诉求，从而可以营造更好的营商氛围，帮助企业排忧解难、落实政策，提振企业发展信心。这些举措也体现了本次大会的主题——“齐心协力、奋发有为、为加快新时代美好幸福怀远现代化建设而奋斗”。
+                        </span>
+                    </p>
+                    <p class="nsc-p1">
+                        <span>
+                            会议通报表彰了“2019年全县优质企业”和“县政府质量奖获奖企业”。安徽神通物联网科技有限公司也荣膺“2019年度怀远县财税突出贡献奖”。
+                        </span>
+                    </p>
+                    <p class="nsc-p1">
+                        <span>
+                            神通科技的发展，离不开市县政府的一贯支持。不久前，蚌埠市市长王诚以及怀远县常务副县长路军，也先后带队前往神通科技考察，对于企业发展予以重要工作指示。
+                        </span>
+                    </p>
+                    <p class="nsc-p1">
+                        <span>
+                            这次神通科技荣获表彰，不仅是资金上的奖励，更是荣誉上的象征。神通科技也会格外珍惜这样的荣誉，继续加强技术团队建设和专业人才培养，整合优质的网络资源，搭建可信、优质的综合服务系统，再创佳绩，为怀远县及蚌埠市经济水平持续发展贡献力量。
+                        </span>
+                    </p>
+
+                </section> -->
+        <!-- </section> -->
+    </div>
+
+    <!-- footer -->
+    <div class="footer-box" id="footer_box"></div>
+
+</body>
+
+
+
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>团队文化</title>
+    <link rel="stylesheet" type="text/css" href="css/public.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/com.css">
+    <link rel="stylesheet" type="text/css" href="css/global.css" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/public.js"></script>
+    <script src="js/js.js"></script>
+    <script>
+        var gdata;
+        $(function() {
+            $("#footer_box").load("component/footer.html");
+            $.ajax({
+                url: 'website/news/list',
+                type: 'POST',
+                dataType: "json",
+                success: function(datas) { //请求成功后处理函数。
+                    gdata = datas;
+                    initSlide();
+                },
+                error: function(d, msg) {
+                    console.log("Could not find user " + msg);
+                }
+            });
+        });
+
+        function initSlide() {
+            $('.nt span').click(function() {
+                var index = $(this).index();
+                $(this).addClass('active').siblings().removeClass('active');
+                init(index);
+            });
+            init();
+        }
+
+        function init(index) {
+            index = index ? index : 0
+            var data = gdata.result;
+            var htmltext = '';
+            // console.log(index)
+            console.log(index + 1)
+            for (var k in data) {
+                if (data[k].type == index + 3) {
+                    htmltext += '<div class="teamk-list">' +
+                        '<a href="news-child.html?articleId=' + data[k].id + '"  target="_blank">' +
+                        '<div class="f1">' +
+                        '<span>' +
+                        '<img src="' + data[k].img + '"/ alt="" width="417" height="204">' +
+                        '</span>'+
+                        '<div class="teamk-con-pad">'+
+                        '<h2 class="f-tit txt-align-l">' + data[k].title + '</h2>' +
+                        '<p class="f-cont txt-align-l">' + showHTML(data[k].content, 20, "  ......") + '</p>' +
+                        '<div>'+
+                        '<div class="box-siz w5 txt-align-l"><span class="teamk-ckxq">查看详情—</span>'+
+                        '</div>'+
+                        '<div class="box-siz w5 txt-align-r"><span class="f-time">' + data[k].updateTime.substring(0, 10) + '</span>'+
+                        '</div>'+
+                        '</div>'+
+                        '</div>' +
+                        '</div>' +
+                        '</a>' +
+                        '</div>'
+                }
+
+            }
+            console.log(htmltext)
+            $(".focus .container").html(htmltext);
+        }
+
+
+
+        function showHTML(str, length, endstr) {
+            if (str != null) {
+                var html = str.replace(/<[^>]+>/g, "").replace(/&nbsp;/ig, "").substring(0, length) + endstr;
+                return html;
+            }
+            return null;
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="topbox">
+        <div class="head clearfloat">
+            <div class="logo clearfloat">
+                <img class="new-logo-style" src="temp/logo.png" alt="">
+            </div>
+            <div class="nav">
+                <ul class="clearfloat">
+                    <li><a href="index.html">首页</a></li>
+                    <li class="active"><a href="Company.html">关于我们</a>
+                        <div class="nav_down">
+                            <p><a href="Company.html">公司简介</a></p>
+                            <p><a href="culture.html">企业文化</a></p>
+                            <p><a href="team.html">团队文化</a></p>
+                            <p><a href="job.html">公司招聘</a></p>
+                        </div>
+                    </li>
+                    <li><a href="http://www.sthjnet.com/#/" target="_blank">神通货金</a></li>
+                    <li><a href="news.html">新闻中心</a>
+                        <div class="nav_down">
+                            <p><a href="news.html">神通动态</a></p>
+                            <p><a href="industry.html">行业资讯</a></p>
+                        </div>
+                    </li>
+                    <!-- <li><a href="job.html">人才招聘</a></li> -->
+                    <li><a href="aboutUs.html">联系我们</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--top-->
+    <div class="gl-bg team-bg">
+        <div class="agent_top coverage">
+            <!-- <h2>团队文化</h2> -->
+        </div>
+    </div>
+
+    <!-- company-nav -->
+    <div class="company-nav-box">
+        <div class="coverage txt-align">
+            <div class="company-link-btn f0">
+                <a class="box-siz w25 " href="Company.html">公司简介</a>
+                <a class="box-siz w25 " href="culture.html">企业文化</a>
+                <a class="box-siz w25 active" href="team.html">团队文化</a>
+                <a class="box-siz w25" href="job.html">公司招聘</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="coverage f0 tm-li-box">
+        <div class="box-siz w2 v-top news-tab txt-align">
+            <div class="nt">
+                <span class="active">公司团建</span>
+                <span>公司培训</span>
+                <span>生日会</span>
+                <span>运动会</span>
+            </div>
+        </div>
+        <div class="box-siz w8 v-top txt-align">
+            <div class="focus">
+                <div class="focus-1 container">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+   
+    <!-- footer -->
+    <div class="footer-box" id="footer_box"></div>
+
+</body>
+
+</html>

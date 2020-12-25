@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" href="css/public.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <script src="js/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="js/jquery.js"></script> -->
+    <script type="text/javascript">
+        var num = [];
+        $(function () {
+            $.ajax({
+                url: 'website/banner/list',
+                type: 'POST',
+                dataType: "json",
+                data: {
+                    "type": "1"
+                },
+                success: function (datas) { //请求成功后处理函数。
+                    var htmltext = '';
+                    var data = datas.result;
+                    for (var i in data) {
+                        htmltext += '<li>' +
+                            '<img src="' + data[i].img + '"/>' +
+                            '</li>'
+                    }
+                    $("#xin").html(htmltext);
+                    banner();
+
+                },
+                error: function (d, msg) {
+                    console.log("Could not find user " + msg);
+                }
+            });
+            //企业资质
+            $.ajax({
+                url: 'website/banner/list',
+                type: 'POST',
+                dataType: "json",
+                data: {
+                    "type": "4"
+                },
+                success: function (datas) { //请求成功后处理函数。
+                    console.log(datas);
+                    var htmltext = '';
+                    var spanBoxht = '';
+                    var data = datas.result;
+
+                    var ihtml = [];
+                    for (var i = 0; i < data.length; i++) {
+                        ihtml.push('<div class="col-md-3 col-sm-6 col-xs-6">'
+                            + '<img src="' + data[i].img + '" width="240" height="180"/>'
+                            + '</div>')
+
+                    }
+
+                    var len = ihtml.length / 4;
+                    len = parseInt(ihtml.length % 4 != 0 ? len + 1 : len);
+
+                    for (var i = 0; i < len; i++) {
+                        var start = i * 4;
+                        var end = start + 4;
+                        end = end > ihtml.length ? ihtml.length : end;
+                        ihtml.slice(start, end);
+
+                        htmltext += '<li>' +
+                            '' + (ihtml.slice(start, end)).join("") + '' +
+                            '</li>'
+                        spanBoxht += '<span></span>'
+                    }
+
+                    $(".coop-ul").html(htmltext);
+                    $(".spanBox").html(spanBoxht);
+                    changeTab();
+
+                },
+                error: function (d, msg) {
+                    console.log("Could not find user " + msg);
+                }
+            });
+
+            $.ajax({
+                url: 'website/news/list',
+                type: 'POST',
+                dataType: "json",
+                success: function (datas) { //请求成功后处理函数。
+                    var data = datas.result
+                    var htmltext = '';
+                    var indhtmltext = '';
+                    var tt = [];
+                    var ii = [];
+                    for (var i in data) {
+                        if (data[i].type == "1") {
+                            tt.push(data[i]);
+
+                        }
+                        if (data[i].type == "2") {
+                            ii.push(data[i])
+                        }
+                    }
+                    for (var j in tt.slice(0, 2)) {
+                        htmltext += '<div class="row">' +
+                            '<a href="news-child.html?articleId=' + tt[j].id + '"  target="_blank">' +
+                            '<div class="col-md-4 ct-txt-img">' +
+                            '<img src="' + tt[j].img + '" alt="">' +
+                            '</div>' +
+                            '<div class="col-md-8">' +
+                            '<p class="ct-txt-p-h">' + tt[j].title + '</p>' +
+                            '<p class="ct-txt-p">' + showHTML(tt[j].content, 70, "  ......") + '</p>' +
+                            '<p class="f-time">' + tt[j].updateTime.substring(0, 10) + '</p>' +
+                            '</div>' +
+                            '</a>' +
+                            '</div>'
+                    }
+                    for (var k in ii.slice(0, 2)) {
+                        indhtmltext += '<div class="row">' +
+                            '<a href="news-child.html?articleId=' + ii[k].id + '"  target="_blank">' +
+                            '<div class="col-md-4 ct-txt-img">' +
+                            '<img src="' + ii[k].img + '" alt="">' +
+                            '</div>' +
+                            '<div class="col-md-8">' +
+                            '<p class="ct-txt-p-h">' + ii[k].title + '</p>' +
+                            '<p class="ct-txt-p">' + showHTML(ii[k].content, 70, "  ......") + '</p>' +
+                            '<p class="f-time">' + ii[k].updateTime.substring(0, 10) + '</p>' +
+                            '</div>' +
+                            '</a>' +
+                            '</div>'
+                    }
+
+                    $('.com-dynamic').html(htmltext);
+                    $('.ind-dynamic').html(indhtmltext);
+
+                },
+                error: function (d, msg) {
+                    console.log("Could not find user " + msg);
+                }
+            });
+
+            $.ajax({
+                url: 'website/bigdata/list',
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+
+                    var data = datas.result;
+                    var htmltext = '';
+                    for (var i in data) {
+                        num.push((data[i].number).toString());
+                        htmltext += '<div class="product-num-item col-md-3 ">' +
+                            '<div class="rhombus ">' +
+                            '<span class="timer product-num-nub count-title" id="count-number' + i + '">' + 0 + '</span>' +
+                            '<span class="product-num-add">' + data[i].unit + '</span>' +
+                            '<span class="product-num-inf">' + data[i].title + '</span>' +
+                            '</div>' +
+                            '</div>'
+                    }
+
+                    $('.product-num-head').html(htmltext);
+                    tt();
+                },
+                error: function (d, msg) {
+                    console.log("Could not find user " + msg);
+                }
+            });
+
+            $.ajax({
+                url: 'website/business/list',
+                type: 'GET',
+                dataType: 'json',
+                success: function (datas) {
+                    var data = datas.result;
+                    var htmltext = '';
+                    for (var i in data.slice(0, 3)) {
+                        // num.push((data[i].number).toString());
+                        var active = i == 1 ? 'active' : '';
+                        htmltext += '<li class="' + active + '">'
+                            + '<a href="">'
+                            + '<div class="apply_pic">'
+                            + '<img src="' + data[i].img + '"/>'
+                            + '</div>'
+                            + '<h1 class="app_name">' + data[i].title + '</h1>'
+                            + '<div class="apptext">' + data[i].content + '</div>'
+                            + '</a>'
+                            + '</li>'
+                    };
+                    $('.applyId').html(htmltext);
+                    applys();
+                },
+                error: function (d, msg) {
+                    console.log("Could not find user " + msg);
+                }
+            });
+
+            function showHTML(str, length, endstr) {
+                if (str != null) {
+                    var html = str.replace(/<[^>]+>/g, "").replace(/&nbsp;/ig, "").substring(0, length) + endstr;
+                    return html;
+                }
+                return null;
+
+            }
+
+            function changeTab() {
+                var slideBox = $(".coo");
+                var ul = slideBox.find("ul");
+                var oneWidth = slideBox.find("ul li").eq(0).width();
+                var number = slideBox.find(".spanBox span"); //注意分号 和逗号的用法
+                var timer = null;
+                var sw = 0;
+                //每个span绑定click事件，完成切换颜色和动画，以及读取参数值
+                number.on("click", function () {
+                    $(this).addClass("active").siblings("span").removeClass("active");
+                    sw = $(this).index();
+                    ul.animate({
+                        "right": oneWidth * sw, //ul标签的动画为向左移动；
+                    });
+                });
+                //左右按钮的控制效果
+                $(".right-btn").stop(true, true).click(function () {
+                    sw++;
+                    if (sw == number.length) { sw = 0 };
+                    number.eq(sw).trigger("click");
+                });
+                $(".left-btn").stop(true, true).click(function () {
+                    sw--;
+                    if (sw == number.length) { sw = 0 };
+                    number.eq(sw).trigger("click");
+                });
+                //定时器的使用，自动开始
+                timer = setInterval(function () {
+                    sw++;
+                    if (sw == number.length) { sw = 0 };
+                    number.eq(sw).trigger("click");
+                }, 5000);
+                //hover事件完成悬停和，左右图标的动画效果
+                slideBox.hover(function () {
+                    $(".right-btn,.left-btn").animate({
+                        "opacity": 1,
+                    }, 200);
+                    clearInterval(timer);
+                }, function () {
+                    $(".right-btn,.left-btn").animate({
+                        "opacity": 0.5,
+                    }, 500);
+                    timer = setInterval(function () {
+                        sw++;
+                        if (sw == number.length) { sw = 0 };
+                        number.eq(sw).trigger("click");
+                    }, 5000);
+                })
+            }
+        });
+    </script>
+    <script src="js/public.js"></script>
+    <script src="js/raphael.min.js"></script>
+    <script type="text/javascript" src="js/js.js"></script>
+    <!-- <script type="text/javascript" src="js/jquery.num.js"></script> -->
+    <script src="js/jquery.animateNumber.js"></script>
+    <script type="text/javascript" src="js/getUrlParam.js"></script>
+
+</head>
+
+<body>
+    <div class="topbox">
+        <div class="head clearfloat">
+            <div class="logo clearfloat">
+                <!-- <em></em> <span>智慧消防大数据云平台</span> -->
+                <img class="new-logo-style" src="temp/logo.png" alt="">
+            </div>
+            <div class="nav">
+                <ul class="clearfloat">
+                    <li class="active"><a href="index.html">首页</a></li>
+                    <li><a href="Company.html">关于我们</a>
+                        <div class="nav_down">
+                            <p><a href="Company.html">公司简介</a></p>
+                            <p><a href="culture.html">企业文化</a></p>
+                            <p><a href="team.html">团队文化</a></p>
+                            <p><a href="job.html">公司招聘</a></p>
+                        </div>
+                    </li>
+                    <li><a href="http://www.sthjnet.com/#/">神通货金</a></li>
+                    <li><a href="news.html">新闻中心</a>
+                        <div class="nav_down">
+                            <p><a href="news.html">神通动态</a></p>
+                            <p><a href="industry.html">行业资讯</a></p>
+                        </div>
+                    </li>
+                    <!-- <li><a href="job.html">人才招聘</a></li> -->
+                    <li><a href="aboutUs.html">联系我们</a>
+                        <div class="nav_down">
+                            <p><a href="aboutUs.html">联系我们</a></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <!--top-->
+    <div class="wraps">
+
+        <div class="banner">
+            <ul class="clearfloat bannerul xin" id="xin">
+
+            </ul>
+            <ul class="num clearfloat">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <div>
+                <!-- <button class="ll" type="button">Click Me l!</button>
+                <button class="rr" type="button">Click Me r!</button> -->
+                <span class="left-btn-l">
+                    <img src="images/lef1.png" width="26" class="ll">
+                </span>
+                <span class="right-btn-r">
+                    <img src="images/rig1.png" width="26" class="rr">
+                </span>
+            </div>
+        </div>
+        <!--banner-->
+        <!-- 关于神通 -->
+        <div class="pro_box">
+            <div class="txt-align ">
+                <span class="sthj-tit">关于神通</span></div>
+            <div class="new_text">
+                <p>安徽神通物联网科技有限公司系国家交通部认定的“无车承运人”试点企业 公司主要经营全国各地的公路及水陆往返货物的运输业务，代办保险，同时提供超一流的货物包装及现代化仓储、物流服务。
+                    是完全基于互联网平台，运用现代科学技术及大数据、云计算等手段，实现“线上资源合理配置，线下物流高效运行”的现代化科技物流企业。
+                </p>
+            </div>
+        </div>
+        <div class="st-check-more">
+            <a href="Company.html">查看更多>></a>
+        </div>
+
+        <!-- data -->
+        <div class="product-num-box">
+            <div class="txt-align ">
+                <span class="sthj-tit">神通大数据</span></div>
+            <div class="product-num-content">
+                <div class="product-num-head row">
+                    <div class="product-num-item col-md-3 ">
+                        <div class="rhombus ">
+                            <span class="timer product-num-nub count-title" id="count-number">0</span>
+                            <span class="product-num-add">条</span>
+                            <span class="product-num-inf">运单规模</span>
+                        </div>
+
+                    </div>
+                    <div class="product-num-item col-md-3 ">
+                        <div class="rhombus">
+                            <span class="timer product-num-nub count-title" id="count-number1">0</span>
+                            <span class="product-num-add">台</span>
+                            <span class="product-num-inf">平台车辆</span>
+                        </div>
+
+                    </div>
+                    <div class="product-num-item col-md-3 ">
+                        <div class="rhombus">
+                            <span class="timer product-num-nub count-title" id="count-number2">0</span>
+                            <span class="product-num-add">吨</span>
+                            <span class="product-num-inf">货物总量</span>
+                        </div>
+
+                    </div>
+                    <div class="product-num-item col-md-3 ">
+                        <div class="rhombus">
+                            <span class="timer product-num-nub count-title" id="count-number3">0</span>
+                            <span class="product-num-add">名</span>
+                            <span class="product-num-inf">司机数量</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--企业资质-->
+        <section class="cooperation" style="background: #f7f7f7;">
+
+            <div class="container coo">
+                <h1 class="jishu-h1">
+                    <span class="pro_tit sthj-tit">企业资质</span>
+                    <span class="line"></span>
+                </h1>
+
+                <ul class="coop-ul">
+                    <li>
+                        <div class="col-md-3 col-sm-6 col-xs-6">
+                            <!-- <a href="javascript:return false;" target="_blank"> -->
+                            <img src="img/01.png" width="190">
+                            <!-- </a> -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">
+                            <!-- <a href="javascript:return false;" target="_blank"> -->
+                            <img src="img/02.png" width="190">
+                            <!-- </a> -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">
+                            <!-- <a href="javascript:return false;" target="_blank"> -->
+                            <img src="img/03.png" width="190">
+                            <!-- </a> -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">
+                            <!-- <a href="javascript:return false;" target="_blank"> -->
+                            <img src="img/04.png" width="190">
+                            <!-- </a> -->
+                        </div>
+                    </li>
+                    <li class="li2">
+                        <div class="col-md-3 col-sm-6 col-xs-6">
+                            <!-- <a href="javascript:return false;" target="_blank"> -->
+                            <img src="img/05.png" width="190">
+                            <!-- </a> -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">
+                            <!-- <a href="javascript:return false;" target="_blank"> -->
+                            <img src="img/06.png" width="190">
+                            <!-- </a> -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">
+                            <!-- <a href="javascript:return false;" target="_blank"> -->
+                            <img src="img/07.png" width="190">
+                            <!-- </a> -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">
+                            <!-- <a href="javascript:return false;" target="_blank"> -->
+                            <img src="img/08.png" width="190">
+                            <!-- </a> -->
+                        </div>
+                    </li>
+                    <li class="li3">
+                        <div class="col-md-3 col-sm-6 col-xs-6">
+                            <!-- <a href="javascript:return false;" target="_blank"> -->
+                            <img src="img/09.jpg" width="190">
+                            <!-- </a> -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">
+                            <!-- <a href="javascript:return false;" target="_blank"> -->
+                            <img src="img/10.jpg" width="190" height="120">
+                            <!-- </a> -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">
+                            <!-- <a href="javascript:return false;" target="_blank"> -->
+                            <img src="img/07.png" width="190">
+                            <!-- </a> -->
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">
+                            <!-- <a href="javascript:return false;" target="_blank"> -->
+                            <img src="img/08.png" width="190">
+                            <!-- </a> -->
+                        </div>
+                    </li>
+                </ul>
+                <div class="spanBox" style="display: none;">
+                    <span class="active"></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+                <span class="left-btn">
+                    <img src="images/lef1.png" width="26" class="lef">
+                </span>
+                <span class="right-btn">
+                    <img src="images/rig1.png" width="26" class="rig">
+                </span>
+            </div>
+        </section>
+        <!--业务范围-->
+        <div class="apply_box">
+            <div class=" txt-align">
+                <span class="sthj-tit">业务范围</span>
+            </div>
+            <div class="apply_list">
+                <ul class="clearfloat applyId">
+                    <!-- <li>
+                        <a href="">
+                            <div class="apply_pic">
+                                <img src="temp/ys01.jpg" />
+                            </div>
+                            <h1 class="app_name">公路运输</h1>
+                            <div class="apptext">
+                                提高车主配货效率，降低空返率；提升货主找车效率，改善整体物流行业的运行效率。
+                            </div>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="">
+                            <div class="apply_pic">
+                                <img src="temp/ys02.gif" />
+                            </div>
+                            <h1 class="app_name">水上运输</h1>
+                            <div class="apptext">
+                                公司拥有数十年水上运输经验及自营多条海船及码头，为客户提供一站式水运服务
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="clearfloat">
+                            <div class="apply_pic clearfloat">
+                                <img src="temp/ys03.jpg" />
+                            </div>
+                            <h1 class="app_name">保险金融</h1>
+                            <div class="apptext">
+                                货运保险是以运输途中的货物作为保险标的，保险人对由自然灾害和意外事故造成的货物损失负责赔偿责任的保险。
+                            </div>
+                        </a>
+                    </li> -->
+                </ul>
+            </div>
+
+        </div>
+        <!-- news -->
+        <div class="news-box">
+            <div class="row">
+                <!-- 公司动态 -->
+                <div class="col-md-6 ">
+                    <div class="row new-c-t ">
+                        <div class="col-md-6 new-ct-hed">公司动态</div>
+                        <div class="col-md-6 new-ct-bot txt-align-r">
+                            <a href="news.html">more >></a>
+                        </div>
+                    </div>
+                    <div class="com-dynamic">
+                        <!-- <div class="row">
+                            <a href="">
+                                <div class="col-md-4 ct-txt-img"><img src="images/n01.jpg" alt=""></div>
+                                <div class="col-md-8">
+                                    <p class="ct-txt-p-h">安徽神通物联网科技有限公司，荣膺2019年度怀远县财税突出贡献奖！</p>
+                                    <p class="ct-txt-p">
+                                        安徽神通物联网科技有限公司，荣膺2019年度怀远县财税突出贡献奖！ </p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 ct-txt-img"><img src="images/n02.jpg" alt=""></div>
+                            <div class="col-md-8">
+                                <p class="ct-txt-p-h">常务副县长路军到神通科技公司调研指导</p>
+                                <p class="ct-txt-p">
+                                    常务副县长路军到神通科技公司调研指导</p>
+                            </div>
+                        </div> -->
+                    </div>
+
+                </div>
+                <!-- 业界资讯 -->
+                <div class="col-md-6">
+                    <div class="row new-c-t">
+                        <div class="col-md-6 new-ct-hed">业界资讯</div>
+                        <div class="col-md-6 new-ct-bot txt-align-r">
+                            <a href="news.html">more >></a>
+                        </div>
+                    </div>
+                    <div class="ind-dynamic">
+                        <!-- <div class="row">
+                            <div class="col-md-4 ct-txt-img"><img src="images/hy01.png" alt=""></div>
+                            <div class="col-md-8">
+                                <p class="ct-txt-p-h">如何进一步降低物流成本？国家为你支招！</p>
+                                <p class="ct-txt-p"> 如何进一步降低物流成本？国家为你支招！</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 ct-txt-img"><img src="images/hy03.png" alt=""></div>
+                            <div class="col-md-8">
+                                <p class="ct-txt-p-h">一图读懂交通运输促进消费扩容提质“16条”</p>
+                                <p class="ct-txt-p"> 一图读懂交通运输促进消费扩容提质“16条”</p>
+                            </div>
+                        </div> -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--合作伙伴-->
+        <div class="friendbox" style="display: none;">
+            <div class=" txt-align">
+                <span class="sthj-tit">合作伙伴</span>
+            </div>
+
+            <div class="friend">
+                <ul class="clearfloat">
+                    <!-- <li>
+                        <a href=""><img src="temp/img_01.png" /></a>
+                    </li>
+                    <li>
+                        <a href=""><img src="temp/img_02.jpg" /></a>
+                    </li>
+                    <li>
+                        <a href=""><img src="temp/‫img_03.png" /></a>
+                    </li>
+                    <li>
+                        <a href=""><img src="temp/‫img_04.png" /></a>
+                    </li>
+                    <li>
+                        <a href=""><img src="temp/img_05.jpg" /></a>
+                    </li>
+                    <li>
+                        <a href=""><img src="temp/‫img_06.png" /></a>
+                    </li>
+                    <li>
+                        <a href=""><img src="temp/‫img_07.png" /></a>
+                    </li>
+                    <li>
+                        <a href=""><img src="temp/img08.jpg" /></a>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+        <!--合作伙伴-->
+        <div class="footerbox">
+            <div class="footer clearfloat">
+                <div class="hot_line">
+                    <!-- <div class="hot_tit">
+						<span>售前咨询热线</span>
+					</div>
+					<div class="call">
+						027-87313836
+					</div>
+					<div class="qqin">
+						QQ咨询
+					</div> -->
+                    <img src="temp/logo.png" alt="" style="width: 250px">
+                </div>
+
+                <div class="contus">
+                    <div class="fast_tit">
+                        联系我们
+                    </div>
+                    <div class="fast_list">
+                        <p>地址：安徽省蚌埠市蚌山区绿地珠峰写字楼B座29层</p>
+                        <p>电话：0552-3239999 400-0552-333</p>
+                        <p>邮箱：admin@sthjnet.com</p>
+                    </div>
+                </div>
+                <div class="fast_nav">
+                    <div class="fast_tit">
+                        商务合作
+                    </div>
+                    <div class="fast_list">
+                        <p style="font-size: 20px;">173-5526-6863</p>
+                        <p>（工作时间：9:00-18:00）</p>
+                    </div>
+
+
+                </div>
+                <div class="code">
+                    <div class="code_pic">
+                        <img src="temp/code.jpg" />
+                    </div>
+                    <div class="code_text">
+                        关注神通物联网
+                    </div>
+                </div>
+            </div>
+            <div class="copy">
+                Copyright © 2019 安徽神通物联网科技有限公司 All Rights Reserved. 皖ICP备18018340号-2
+            </div>
+        </div>
+
+        <div class="contact">
+            <div class="callbox">
+                <span></span>
+                <div class="call_num">
+                    <div class="tebline"><img src="images/dianhuabeifen.png" width="24" alt=""> 服务热线</div>
+                    <div> 0552-3239999</div>
+                    <div> 400-0552-333</div>
+                </div>
+            </div>
+            <div class="wxbox">
+                <span></span>
+                <div class="wxpic">
+                    <div class="txt-align">客服微信</div>
+                    <img src="temp/code.jpg" width="120" />
+                </div>
+            </div>
+            <div class="return">
+                <span></span>
+                <!--<img src="images/return.png"/>-->
+            </div>
+        </div>
+    </div>
+    <!--右侧返回顶部-->
+
+</body>
+
+<script>
+    var banner = function () {
+        (function (obj) {
+            obj.win = {
+                loopFun: function (el, val, bg, color, textColor, fontSize, size, r, time, easing) {
+                    var si = r + size / 2;
+                    var xy = r + size;
+                    if (val < 0 || val > 100) {
+                        return alert('请输入0~100之间的数')
+                    }
+                    var paper = Raphael(el, (r + size) * 2, (r + size) * 2);
+                    paper.circle(xy, xy, r).attr({
+                        'stroke-width': size,
+                        stroke: bg
+                    });
+                    paper.customAttributes.arc = function (val) {
+                        var v = 360 * val / 100,
+                            s = -180,
+                            e = s + v,
+                            x = xy,
+                            y = xy,
+                            rad = Math.PI / 180,
+                            x1 = x + r * Math.sin(-s * rad),
+                            y1 = y + r * Math.cos(-s * rad),
+                            x2 = x + r * Math.sin(-e * rad),
+                            y2 = y + r * Math.cos(-e * rad),
+                            path = [
+                                ['M', x1, y1],
+                                ['A', r, r, 0, +(e - s > 180), 1, x2, y2]
+                            ];
+                        return {
+                            path: path
+                        };
+                    };
+                    var an = paper.path().attr({
+                        'stroke-width': size,
+                        stroke: color,
+                        arc: 0.01
+                    });
+                    an.animate({
+                        stroke: color,
+                        arc: val
+                    }, time, easing);
+                    setTimeout(function () {
+                        if (val == 100) {
+                            paper.circle(xy, xy, r).attr({
+                                'stroke-width': size,
+                                stroke: color
+                            });
+                        }
+                    }, time);
+                    paper.customAttributes.txt = function (val) {
+                        return {
+                            text: Math.floor(val * 100) / 100 + '%'
+                        }
+                    };
+                    var l = paper.text(xy, xy).attr({
+                        txt: 0,
+                        'fill': textColor,
+                        'font-size': fontSize,
+                        'font-weight': 700
+                    });
+                    l.animate({
+                        txt: val
+                    }, time);
+                },
+                stripFun: function (el, val, bg, color, textColor, fontSize, lenght, size, time, easing) {
+                    var s = size / 2;
+                    if (val < 0 || val > 100) {
+                        return alert('请输入0~100之间的数')
+                    }
+                    var paper = Raphael(el, lenght, size);
+                    paper.path('M 0,' + s + ' L' + lenght + ',' + s).attr({
+                        'stroke-width': size,
+                        stroke: bg
+                    });
+                    var strip = paper.path('M 0,' + s + ' L0,' + s).attr({
+                        'stroke-width': size,
+                        stroke: color
+                    });
+                    strip.animate({
+                        path: 'M 0,' + s + ' L' + lenght / 100 * val + ',' + s
+                    }, time, easing);
+                    paper.customAttributes.arc = function (val) {
+                        return {
+                            text: Math.floor(val * 100) / 100 + '%'
+                        }
+                    };
+                    var l = paper.text(lenght / 2, s).attr({
+                        arc: 0,
+                        'fill': textColor,
+                        'font-size': fontSize
+                    });
+                    l.animate({
+                        arc: val
+                    }, time);
+                }
+            };
+        })(window);
+        win.loopFun($('.num li.active')[0], 100, '#808080', '#ffffff', 'none', '2px', 2, 7, 5000, 'linear');
+        var widths = $(".banner").width();
+        var lengths = $('.bannerul li').length;
+        $('.bannerul').append($('.bannerul li').first().clone());
+        var sid = null;
+        var index = 0;
+        $('.bannerul li').width(widths)
+
+        function play() {
+            index++;
+            if (index == $('.bannerul li').length) {
+                index = 1;
+                $('.bannerul').stop().animate({
+                    'margin-left': 0
+                }, 0)
+            }
+            if (index == $('.bannerul li').length - 1) {
+                $(' .num li').eq(0).addClass('active').siblings().removeClass('active');
+                $(' .num li').eq(0).siblings("li").removeClass('active');
+            }
+            core(index);
+        }
+
+        $(".ll").click(function () {
+            index--;
+            if (index >= 4 || index <= 0) {
+                index = 0;
+            }
+            core(index)
+        })
+        $(".rr").click(function () {
+            index++;
+            if (index >= 4) {
+                index = 0;
+            }
+            core(index)
+        })
+
+
+        sid = setInterval(play, 5000);
+        $(' .banner').hover(function () {
+            clearInterval(sid)
+        }, function () {
+            sid = setInterval(play, 5000);
+        })
+        $(".num li").click(function () {
+            index = $(this).index();
+            core(index);
+        })
+
+        function core(num) {
+            $('.bannerul').stop().animate({
+                'margin-left': -($('.bannerul li').eq(0).innerWidth() * num)
+            }, 1000);
+            $(' .num li').eq(num).addClass('active').siblings().removeClass('active');
+            win.loopFun($('.num li.active')[0], 100, '#808080', '#ffffff', 'none', '2px', 2, 7, 5000, 'linear');
+            $(' .num li').eq(num).siblings("li").find("svg").remove()
+            //          console.log(num)
+        }
+    }
+    banner();
+</script>
+<script>
+    function fmoneyCN(s, n) {
+        n = n >= 0 && n <= 20 ? n : 2;
+        s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + ""; //精度
+        var l = s.split(".")[0].split(""),
+            r = s.split(".")[1], //remind
+            t = "";
+        var CN_TEN_THOUSAND = "<span class='f_size'>,</span>";
+        var CN_HUNDRED_MILLION = "<span class='f_size'>,</span>";
+        //var CN_UNIT = "<span class='f_size'>元</span>";
+
+        if (l.length < 5) {
+            //return s + CN_UNIT;
+            return s;
+        }
+
+        for (i = 0; i < l.length; i++) {
+            if (i == (l.length - 9)) {
+                t += l[i] + CN_HUNDRED_MILLION + "";
+            } else if (i == (l.length - 5)) {
+                t += l[i] + CN_TEN_THOUSAND + "";
+            } else {
+                t += l[i];
+            }
+        }
+        //return t.split("").join("") + CN_UNIT;
+        return t.split("").join("");
+    }
+
+    function tt() {
+        for (var i in num) {
+            $("#count-number" + i).animateNumber({
+                number: num[i],
+                numberStep: function (now, tween) {
+                    var target = $(tween.elem);
+                    target.prop('number', now).html(fmoneyCN(now, 0));
+                }
+            }, 3000);
+        }
+    };
+    setInterval(tt, 5000);
+
+    function applys() {
+        $(".apply_list li").mouseover(function () {
+            $(this).addClass("active").siblings("li").removeClass("active");
+        })
+    }
+</script>
+
+</html>

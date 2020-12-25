@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人才招聘</title>
+    <link rel="stylesheet" type="text/css" href="css/public.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/join.css">
+    <link rel="stylesheet" type="text/css" href="css/global.css" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/public.js"></script>
+    <script src="js/getUrlParam.js"></script>
+    <script type="text/javascript">
+        var articleId = UrlParm.parm('articleId');
+        $.ajax({
+            url: 'website/job/getDetail',
+            type: 'POST',
+            dataType: "json",
+            data: {
+                'id': articleId
+            },
+            success: function (datas) { //请求成功后处理函数。
+                console.log(datas)
+
+                var data = datas.result
+                console.log(data)
+                var htmltext = '';
+
+                htmltext =
+                    '<div class="tit">招聘职位:' + data.position + '</div>' +
+                    '<p>' + data.richtext + '</p>' +
+                    '<a href="' + data.url + '" class="app" target="_blank">立即申请</a>'
+
+
+                $(".pt").html(htmltext);
+
+
+            },
+            error: function (d, msg) {
+                console.log("Could not find user " + msg);
+            }
+        });
+        $(function(){
+            $("#footer_box").load("component/footer.html");
+        })
+    </script>
+</head>
+
+<body>
+    <div class="topbox">
+        <div class="head clearfloat">
+            <div class="logo clearfloat">
+                <img class="new-logo-style" src="temp/logo.png" alt="">
+            </div>
+            <div class="nav">
+                <ul class="clearfloat">
+                    <li><a href="index.html">首页</a></li>
+                    <li class="active"><a href="Company.html">关于我们</a>
+                        <div class="nav_down">
+                            <p><a href="Company.html">公司简介</a></p>
+                            <p><a href="culture.html">企业文化</a></p>
+                            <p><a href="team.html">团队文化</a></p>
+                            <p><a href="job.html">公司招聘</a></p>
+                        </div>
+                    </li>
+                    <li><a href="http://www.sthjnet.com/#/" target="_blank">神通货金</a></li>
+                    <li><a href="news.html">新闻中心</a>
+                        <div class="nav_down">
+                            <p><a href="news.html">神通动态</a></p>
+                            <p><a href="industry.html">行业资讯</a></p>
+                        </div>
+                    </li>
+                    <!-- <li class="active"><a href="job.html">人才招聘</a></li> -->
+                    <li><a href="aboutUs.html">联系我们</a>
+                        <!-- <div class="nav_down">
+                            <p><a href="aboutUs.html">联系我们</a></p>
+                        </div> -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!--top-->
+    <div class="gl-bg team-bg">
+        <div class="agent_top coverage">
+            <!-- <h2>加入我们</h2> -->
+        </div>
+    </div>
+
+    <div class="cont">
+        <div class="info wow slideInLeft">
+            <div class="pt">
+
+            </div>
+            <!-- <div class="pt">
+                    <div class="tit">招聘职位:法律顾问</div>
+                    <p></p>
+                </div>
+                <p>
+                    <br>
+                </p> -->
+            <!-- <div class="txt">
+                    <p>
+                        联系电话：0551-69127422-0837 联系人：彭小姐 招聘QQ：2376228902 微信：17718126736 简历投递邮箱：pengshasha@log56.com
+                    </p>
+                    <p>
+                        公司福利：五险一金、股权激励、员工餐厅、班车接送、高新区公租房、过节礼品、生日补贴、团队活动经费、下午茶...
+                    </p>
+                </div> -->
+            <!-- <a href="" class="app">立即申请</a> -->
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer-box" id="footer_box"></div>
+
+
+</body>
+
+
+
+</html>
